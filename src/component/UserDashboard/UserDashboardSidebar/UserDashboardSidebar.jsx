@@ -13,37 +13,39 @@ import { BsFillPieChartFill } from "react-icons/bs";
 import { FaUser, FaUserFriends } from "react-icons/fa";
 import { IoLogOut, IoSettings } from "react-icons/io5";
 import { PiChartLineFill } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const UserDashboardSidebar = ({
-  isSidebarOpen,
-  setIsSidebarOpen,
-  isMobile,
-}) => {
+const UserDashboardSidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
+  // Get the current location
+  const location = useLocation();
+
   // Navigation items
   const navItems = [
     {
       name: "Portfolio",
       icon: <FaUser size={24} />,
-      path: "/portfolio",
-      active: true,
+      path: "/",
+      active: location.pathname === "/",
     },
     {
       name: "My Trade",
       icon: <PiChartLineFill size={24} />,
-      path: "/my-trade",
+      path: "/trade",
+      active: location.pathname === "/trade",
     },
     {
       name: "Social feed",
       icon: <FaUserFriends size={24} />,
       path: "/social-feed",
+      active: location.pathname === "/social-feed",
     },
     {
       name: "Analytics",
       icon: <BsFillPieChartFill size={24} />,
       path: "/analytics",
+      active: location.pathname === "/analytics",
     },
-    { name: "Log out", icon: <IoLogOut size={24} />, path: "/logout" },
+    { name: "Log out", icon: <IoLogOut size={24} />, path: "/logout", active: location.pathname === "/logout" },
   ];
 
   // Close sidebar on mobile when a link is clicked
@@ -99,7 +101,7 @@ const UserDashboardSidebar = ({
                   isSidebarOpen ? "justify-start" : "justify-center"
                 } ${
                   item.active
-                    ? "bg-[#E7F0FF] text-[#007BFF] "
+                    ? "bg-[#E7F0FF] text-[#007BFF]"
                     : item.name === "Log out"
                     ? "text-[#DC3545]"
                     : "text-gray-600 hover:bg-gray-100"

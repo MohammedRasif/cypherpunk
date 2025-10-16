@@ -56,10 +56,10 @@ const Dashboard = () => {
     { month: "Jun", value: 70 },
     { month: "Jul", value: 85 },
     { month: "Aug", value: 95 },
-    { month: "Sep", value: 0 },
-    { month: "Oct", value: 0 },
-    { month: "Nov", value: 0 },
-    { month: "Dec", value: 0 },
+    { month: "Sep", value: 50 },
+    { month: "Oct", value: 30 },
+    { month: "Nov", value: 90 },
+    { month: "Dec", value: 80 },
   ];
 
   // Top 5 Holdings
@@ -149,7 +149,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen roboto">
-      <div className="max-w-7xl mx-auto">
+      <div className="container mx-auto">
         {/* Header */}
         <div className="mb-6">
           <h1 className="lg:text-[32px] text-[28px] font-bold text-gray-900">
@@ -215,7 +215,7 @@ const Dashboard = () => {
           </div>
 
           <div className="relative h-64 lg:flex">
-            <div className="flex lg:flex-col justify-between text-xs text-gray-400 lg:pr-4 pr-1 py-2">
+            <div className="flex lg:flex-col justify-between lg:text-[16px] text-xs text-gray-400 lg:pr-4 pr-1 py-2">
               <span>$100000</span>
               <span>$10000</span>
               <span>$1000</span>
@@ -223,7 +223,7 @@ const Dashboard = () => {
             </div>
 
             {/* Chart area */}
-            <div className="flex-1 flex items-end justify-between lg:gap-3 pb-6 border-l border-gray-100 lg:pl-4">
+            <div className="flex-1 flex items-end justify-between lg:gap-3 border-l border-gray-100 lg:pl-4">
               {chartData.map((data, index) => (
                 <div
                   key={index}
@@ -372,7 +372,7 @@ const Dashboard = () => {
                         key={index}
                         className="absolute inset-0"
                         style={{
-                          transform: `rotate(${adjustedStart}deg)`,
+                          transform: `rotate(${adjustedStart}deg)`, 
                         }}
                       >
                         <div
