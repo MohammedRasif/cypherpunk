@@ -398,16 +398,15 @@ const Dashboard = () => {
                     );
                   })}
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <p className="text-xs text-gray-500">Total Value</p>
-                    <p className="text-xl font-bold text-gray-900">$40,689</p>
+                <div className="absolute  inset-0 flex items-center justify-center  ">
+                  <div className="text-center w-fit bg-gray-200 rounded-full lg:px-6 lg:py-11 px-1 py-6 shadow-inner">
+                    <p className="text-[17px] text-gray-500">Total Value</p>
+                    <p className="lg:text-[30px] text-[28px] font-bold text-gray-900">$40,689</p>
                   </div>
                 </div>
               </div>
-
               {/* Legend */}
-              <div className="space-y-2">
+              <div className="space-y-2 ">
                 {portfolioBreakdown.map((item, index) => (
                   <div key={index} className="flex items-center gap-2">
                     <div

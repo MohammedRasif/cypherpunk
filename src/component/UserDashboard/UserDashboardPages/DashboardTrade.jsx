@@ -105,7 +105,7 @@ function DashboardTrade() {
       : "bg-transparent text-gray-500 hover:text-gray-800"; // Unselected tab style
 
   return (
-    <div className="bg-white min-h-screen p-4 sm:p-6 lg:p-8">
+    <div className="bg-white  p-4 sm:p-6 lg:p-8">
       {/* --- Header Section --- */}
       <div className="flex flex-col sm:flex-row justify-between items-start mb-6">
         <div>
@@ -134,11 +134,11 @@ function DashboardTrade() {
       </div>
 
       {/* --- Tabs Section --- */}
-      <div className="flex rounded-full mb-6 w-fit bg-gray-100 p-1.5 relative overflow-hidden shadow-inner">
+      <div className="flex rounded-full mb-6 w-fit bg-gray-100 p-1.5 relative  overflow-hidden shadow-inner">
         {/* Active Trades Button */}
         <button
           onClick={() => setActiveTab("active")}
-          className={`${baseClasses} ${activeClasses("active")} rounded-full`}
+          className={`${baseClasses} ${activeClasses("active")} rounded-full cursor-pointer`}
         >
           Active trades
         </button>
@@ -146,7 +146,7 @@ function DashboardTrade() {
         {/* Close Trades Button */}
         <button
           onClick={() => setActiveTab("closed")}
-          className={`${baseClasses} ${activeClasses("closed")} rounded-full`}
+          className={`${baseClasses} ${activeClasses("closed")} rounded-full cursor-pointer`}
         >
           Close trades
         </button>
