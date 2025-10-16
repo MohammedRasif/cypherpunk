@@ -94,13 +94,48 @@ const Dashboard = () => {
 
   // Portfolio Breakdown
   const portfolioBreakdown = [
-    { label: "Total +=18", color: "#8B5CF6", percentage: 15 },
-    { label: "Total Portfolio Value", color: "#EF4444", percentage: 20 },
-    { label: "Total Portfolio Value", color: "#F97316", percentage: 12 },
-    { label: "Total Portfolio Value", color: "#D4A574", percentage: 18 },
-    { label: "Total Portfolio Value", color: "#A3E635", percentage: 15 },
-    { label: "Total Portfolio Value", color: "#60A5FA", percentage: 10 },
-    { label: "Total Portfolio Value", color: "#A78BFA", percentage: 10 },
+    {
+      label: "Total +=18",
+      color: "#8B5CF6",
+      lightColor: "#C4B5FD",
+      percentage: 15,
+    },
+    {
+      label: "Total Portfolio Value",
+      color: "#EF4444",
+      lightColor: "#FCA5A5",
+      percentage: 20,
+    },
+    {
+      label: "Total Portfolio Value",
+      color: "#F97316",
+      lightColor: "#FDBA74",
+      percentage: 12,
+    },
+    {
+      label: "Total Portfolio Value",
+      color: "#D4A574",
+      lightColor: "#E5C7A1",
+      percentage: 18,
+    },
+    {
+      label: "Total Portfolio Value",
+      color: "#A3E635",
+      lightColor: "#D9F99D",
+      percentage: 15,
+    },
+    {
+      label: "Total Portfolio Value",
+      color: "#60A5FA",
+      lightColor: "#BFDBFE",
+      percentage: 10,
+    },
+    {
+      label: "Total Portfolio Value",
+      color: "#A78BFA",
+      lightColor: "#DDD6FE",
+      percentage: 10,
+    },
   ];
 
   // Monthly Summary
@@ -200,7 +235,7 @@ const Dashboard = () => {
                   >
                     {data.value > 0 && (
                       <div
-                        className="w-full bg-gradient-to-t from-[#8280FF] to-indigo-400 rounded-xl transition-all hover:opacity-80 max-w-[20px] md:max-w-[40px]"
+                        className="w-full bg-gradient-to-t from-[#8280FF] from-90% to-[#D1D0FF] to-100% rounded-xl transition-all hover:opacity-80 max-w-[20px] md:max-w-[40px] shadow-dm"
                         style={{ height: `${(data.value / maxValue) * 100}%` }}
                       ></div>
                     )}
@@ -215,7 +250,7 @@ const Dashboard = () => {
         {/* Holdings and Performance Section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           {/* Top 5 Holding */}
-          <div className="bg-white p-5 rounded-lg shadow-sm">
+          <div className="bg-white p-5 rounded-lg border border-gray-200">
             <h3 className="text-base font-semibold text-gray-900 mb-4">
               Top 5 holding
             </h3>
@@ -240,7 +275,7 @@ const Dashboard = () => {
           </div>
 
           {/* Worst Performing */}
-          <div className="bg-white p-5 rounded-lg shadow-sm">
+          <div className="bg-white p-5 rounded-lg border border-gray-200">
             <h3 className="text-base font-semibold text-gray-900 mb-4">
               Worst Performing
             </h3>
@@ -263,7 +298,7 @@ const Dashboard = () => {
           </div>
 
           {/* Best Performing */}
-          <div className="bg-white p-5 rounded-lg shadow-sm">
+          <div className="bg-white p-5 rounded-lg border border-gray-200">
             <h3 className="text-base font-semibold text-gray-900 mb-4">
               Best Performing
             </h3>
@@ -287,123 +322,153 @@ const Dashboard = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Total Portfolio Value with Donut Chart */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h3 className="text-sm text-gray-600 mb-2">
-              Total Portfolio Value
-            </h3>
-            <p className="text-3xl font-bold text-gray-900 mb-1">40,689</p>
-            <div className="flex items-center gap-1 mb-6">
-              <svg
-                className="w-4 h-4 text-green-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path d="M10 3l7 7-1.41 1.41L11 6.83V17H9V6.83L4.41 11.41 3 10l7-7z" />
-              </svg>
-              <span className="text-xs text-green-600 font-medium">
-                8.5% Up from yesterday
-              </span>
-            </div>
 
-            <div className="relative w-48 h-48 mx-auto mb-6">
-              <svg
-                className="w-full h-full transform -rotate-90"
-                viewBox="0 0 100 100"
-              >
-                {portfolioBreakdown.map((item, index) => {
-                  const total = portfolioBreakdown.reduce(
-                    (sum, i) => sum + i.percentage,
-                    0
-                  );
-                  const startAngle = portfolioBreakdown
-                    .slice(0, index)
-                    .reduce((sum, i) => sum + (i.percentage / total) * 360, 0);
-                  const angle = (item.percentage / total) * 360;
-                  const radius = 40;
-                  const innerRadius = 28;
-
-                  const startRad = (startAngle * Math.PI) / 180;
-                  const endRad = ((startAngle + angle) * Math.PI) / 180;
-
-                  const x1 = 50 + radius * Math.cos(startRad);
-                  const y1 = 50 + radius * Math.sin(startRad);
-                  const x2 = 50 + radius * Math.cos(endRad);
-                  const y2 = 50 + radius * Math.sin(endRad);
-
-                  const x3 = 50 + innerRadius * Math.cos(endRad);
-                  const y3 = 50 + innerRadius * Math.sin(endRad);
-                  const x4 = 50 + innerRadius * Math.cos(startRad);
-                  const y4 = 50 + innerRadius * Math.sin(startRad);
-
-                  const largeArc = angle > 180 ? 1 : 0;
-
-                  const pathData = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} L ${x3} ${y3} A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${x4} ${y4} Z`;
-
-                  return <path key={index} d={pathData} fill={item.color} />;
-                })}
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <p className="text-xs text-gray-500">Total Value</p>
-                  <p className="text-xl font-bold text-gray-900">$40,689</p>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
+          {/* Total Portfolio Value (2/3 width on large screens) */}
+          <div className="bg-white p-4 rounded-lg border border-gray-200 lg:col-span-2">
+            <div className="bg-gray-100 p-3 rounded-lg">
+              <h3 className="text-sm text-gray-600 mb-2">
+                Total Portfolio Value
+              </h3>
+              <p className="text-3xl font-bold text-gray-900 mb-1">40,689</p>
+              <div className="flex items-center gap-1 mb-6">
+                <svg
+                  className="w-4 h-4 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M10 3l7 7-1.41 1.41L11 6.83V17H9V6.83L4.41 11.41 3 10l7-7z" />
+                </svg>
+                <span className="text-xs text-green-600 font-medium">
+                  8.5% Up from yesterday
+                </span>
               </div>
             </div>
 
-            {/* Legend */}
-            <div className="space-y-2">
-              {portfolioBreakdown.map((item, index) => (
-                <div key={index} className="flex items-center gap-2">
+            <div className="lg:flex lg:items-center">
+              <div className="relative lg:w-96 lg:h-96 w-72 h-72 mx-auto mb-6 mt-5">
+                <div className="absolute inset-0">
+                  {portfolioBreakdown.map((item, index) => {
+                    const total = portfolioBreakdown.reduce(
+                      (sum, i) => sum + i.percentage,
+                      0
+                    );
+                    const startAngle = portfolioBreakdown
+                      .slice(0, index)
+                      .reduce(
+                        (sum, i) => sum + (i.percentage / total) * 360,
+                        0
+                      );
+                    const segmentAngle = (item.percentage / total) * 360;
+                    // Add gap by reducing segment angle
+                    const gapSize = 5;
+                    const adjustedAngle = segmentAngle - gapSize;
+                    const adjustedStart = startAngle + gapSize / 2;
+
+                    const lighterColor = item.color + "4D";
+
+                    return (
+                      <div
+                        key={index}
+                        className="absolute inset-0"
+                        style={{
+                          transform: `rotate(${adjustedStart}deg)`,
+                        }}
+                      >
+                        <div
+                          className="absolute inset-0 "
+                          style={{
+                            background: `conic-gradient(
+                            ${lighterColor} 0deg,
+                            ${item.color} ${adjustedAngle * 0.05}deg,
+                            ${item.color} ${adjustedAngle * 0.1}deg,
+                            ${item.color} ${adjustedAngle * 0.95}deg,
+                            ${lighterColor} ${adjustedAngle}deg,
+                            transparent ${adjustedAngle}deg
+                          )`,
+                            clipPath: "circle(35% at 50% 50%)",
+                            WebkitMaskImage:
+                              "radial-gradient(circle, transparent 0%, transparent 33%, black 33%, black 100%)",
+                            maskImage:
+                              "radial-gradient(circle, transparent 0%, transparent 33%, black 33%, black 100%)",
+                            borderRadius: "9999px",
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <p className="text-xs text-gray-500">Total Value</p>
+                    <p className="text-xl font-bold text-gray-900">$40,689</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Legend */}
+              <div className="space-y-2">
+                {portfolioBreakdown.map((item, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: item.color }}
+                    ></div>
+                    <span className="lg:text-[15px] text-xs text-gray-600">
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side (Recent + Monthly Summary) */}
+          <div className="flex flex-col gap-6 lg:col-span-1">
+            {/* Recent Activity */}
+            <div className="bg-white p-5 rounded-lg shadow-sm">
+              <h3 className="text-base font-semibold text-gray-900 mb-4">
+                Recent Activity
+              </h3>
+              <div className="space-y-3">
+                {recentActivity.map((activity) => (
                   <div
-                    className="w-3 h-3 rounded-full"
-                    style={{ backgroundColor: item.color }}
-                  ></div>
-                  <span className="text-xs text-gray-600">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Recent Activity */}
-          <div className="bg-white p-5 rounded-lg shadow-sm">
-            <h3 className="text-base font-semibold text-gray-900 mb-4">
-              Recent Activity
-            </h3>
-            <div className="space-y-3">
-              {recentActivity.map((activity) => (
-                <div
-                  key={activity.id}
-                  className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0"
-                >
-                  <span className="text-sm text-gray-700">
-                    {activity.action}
-                  </span>
-                  <span className="text-xs text-gray-500">{activity.time}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Monthly Summary */}
-          <div className="bg-white p-5 rounded-lg shadow-sm">
-            <h3 className="text-base font-semibold text-gray-900 mb-4">
-              Monthly Summary
-            </h3>
-            <div className="space-y-4">
-              {monthlySummary.map((item, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">{item.label}</span>
-                  <span
-                    className={`text-sm font-semibold ${
-                      item.isPositive ? "text-green-600" : "text-gray-900"
-                    }`}
+                    key={activity.id}
+                    className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0"
                   >
-                    {item.value}
-                  </span>
-                </div>
-              ))}
+                    <span className="text-sm text-gray-700">
+                      {activity.action}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {activity.time}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Monthly Summary */}
+            <div className="bg-white p-5 rounded-lg shadow-sm">
+              <h3 className="text-base font-semibold text-gray-900 mb-4">
+                Monthly Summary
+              </h3>
+              <div className="space-y-4">
+                {monthlySummary.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between"
+                  >
+                    <span className="text-sm text-gray-600">{item.label}</span>
+                    <span
+                      className={`text-sm font-semibold ${
+                        item.isPositive ? "text-green-600" : "text-gray-900"
+                      }`}
+                    >
+                      {item.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
