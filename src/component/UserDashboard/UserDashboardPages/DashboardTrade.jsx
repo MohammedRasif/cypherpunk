@@ -133,12 +133,13 @@ function DashboardTrade() {
         </select>
       </div>
 
-      {/* --- Tabs Section --- */}
       <div className="flex rounded-full mb-6 w-fit bg-gray-100 p-1.5 relative  overflow-hidden shadow-inner">
         {/* Active Trades Button */}
         <button
           onClick={() => setActiveTab("active")}
-          className={`${baseClasses} ${activeClasses("active")} rounded-full cursor-pointer`}
+          className={`${baseClasses} ${activeClasses(
+            "active"
+          )} rounded-full cursor-pointer`}
         >
           Active trades
         </button>
@@ -146,13 +147,14 @@ function DashboardTrade() {
         {/* Close Trades Button */}
         <button
           onClick={() => setActiveTab("closed")}
-          className={`${baseClasses} ${activeClasses("closed")} rounded-full cursor-pointer`}
+          className={`${baseClasses} ${activeClasses(
+            "closed"
+          )} rounded-full cursor-pointer`}
         >
           Close trades
         </button>
       </div>
 
-      {/* --- Trades Table --- */}
       <div className="overflow-x-auto">
         {filteredTrades.length === 0 ? (
           <div className="text-center py-10 text-gray-500">

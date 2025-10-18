@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import UserDashboardLayout from "./component/UserDashboard/UserDashboardLayout/UserDashboardLayout.jsx";
 import Dashboard from "./component/UserDashboard/UserDashboardPages/Dashboard.jsx";
 import DashboardTrade from "./component/UserDashboard/UserDashboardPages/DashboardTrade.jsx";
+import DashboardSocialFeed from "./component/UserDashboard/UserDashboardPages/DashboardSocialFeed.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "trade", 
         element: <DashboardTrade />, 
+      },
+      {
+        path: "social-feed", 
+        element: <DashboardSocialFeed />, 
       },
     ],
   },
