@@ -26,13 +26,13 @@ export default function DashboardAnalytics() {
     { month: "Mar", profit: 95, loss: 90 },
     { month: "Apr", profit: 110, loss: 130 },
     { month: "May", profit: 105, loss: 120 },
-    { month: "Jun", profit: 115, loss: 150 },
+    { month: "Jun", profit: 115, loss: 140 },
     { month: "Jul", profit: 100, loss: 111 },
     { month: "Aug", profit: 125, loss: 90 },
     { month: "Sep", profit: 110, loss: 100 },
     { month: "Oct", profit: 130, loss: 90 },
     { month: "Nov", profit: 120, loss: 130 },
-    { month: "Dec", profit: 140, loss: 160 },
+    { month: "Dec", profit: 140, loss: 120 },
   ];
 
   const maxAbsoluteValue = 150;
@@ -95,6 +95,7 @@ export default function DashboardAnalytics() {
   return (
     <div className="w-full h-screen bg-white roboto">
       <div className="container mx-auto">
+        {/* Market value vs investment cost */}
         <div>
           <h1 className="text-[36px] font-medium text-gray-900 mb-6">
             Monthly Profit & Loss Comparison
@@ -114,18 +115,18 @@ export default function DashboardAnalytics() {
             </div>
           </div>
           <div className="">
-            <div className="flex gap-4">
-              <div className="flex flex-col justify-between items-end w-12 h-[40vh] text-[16px] text-gray-500 pr-2">
-                <span>$10000</span> <span>$5000</span>
-                <span>$1000</span> <span>$100</span>
+            <div className="lg:flex gap-4">
+              <div className="lg:flex flex-col  justify-between items-end w-12 h-[40vh] text-[16px] text-gray-500 pr-2">
+                <span>$10000 </span>
+                <span>$5000</span>
+                <span>$1000</span>
+                <span>$100</span>
                 <span className="font-bold text-gray-800">$00</span>
-                <span>$-100</span> <span>$-1000</span>
-                <span>$-5000</span> <span>$-10000</span>
+                <span>$-5000</span>
+                <span>$-10000</span>
               </div>
               <div className="flex-1 relative">
                 <div className="absolute inset-0 flex flex-col justify-between pointer-events-none py-2">
-                  <div className="border-t border-dashed border-gray-300 w-full"></div>
-                  <div className="border-t border-dashed border-gray-300 w-full"></div>
                   <div className="border-t border-dashed border-gray-300 w-full"></div>
                   <div className="border-t border-dashed border-gray-300 w-full"></div>
                   <div className="border-t border-dashed border-gray-300 w-full"></div>
@@ -138,14 +139,14 @@ export default function DashboardAnalytics() {
                   {data.map((item, index) => (
                     <div
                       key={index}
-                      className="flex flex-col items-center gap-1 flex-1 max-w-12 h-full mt-[10px]"
+                      className="flex flex-col items-center gap-1 flex-1 max-w-12 h-full lg:mt-[70px] -mt-20"
                     >
                       <div className="flex gap-[2px] w-full h-full relative">
                         <div className="absolute w-full top-[50%] h-[1px]"></div>
                         <div
                           className="bg-gradient-to-t from-[#8280FF] from-90% to-[#D1D0FF] to-100% rounded-t-lg transition-all hover:opacity-80 absolute bottom-[50%]"
                           style={{
-                            width: "35px",
+                            width: window.innerWidth < 768 ? "18px" : "35px",
                             height: `${
                               (item.profit / maxAbsoluteValue) * halfChartHeight
                             }px`,
@@ -161,9 +162,9 @@ export default function DashboardAnalytics() {
                           onMouseLeave={handleMouseLeave}
                         ></div>
                         <div
-                          className="bg-gradient-to-b from-[#FF8082] from-88% to-[#D1D0FF] to-100% rounded-b-lg transition-all hover:opacity-80 absolute top-[50%]"
+                          className="bg-gradient-to-b from-[#FF8082] from-88% to-[#FFD0D1] to-100% rounded-b-lg transition-all hover:opacity-80 absolute top-[50%]"
                           style={{
-                            width: "35px",
+                            width: window.innerWidth < 768 ? "18px" : "35px",
                             height: `${
                               (item.loss / maxAbsoluteValue) * halfChartHeight
                             }px`,
@@ -179,9 +180,9 @@ export default function DashboardAnalytics() {
                           onMouseLeave={handleMouseLeave}
                         ></div>
                       </div>
-                      <span className="text-xs text-gray-600 font-medium">
+                      <div className="text-xs text-gray-600 font-medium ">
                         {item.month}
-                      </span>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -190,7 +191,9 @@ export default function DashboardAnalytics() {
           </div>
         </div>
 
-        <div className="pt-10">
+        {/* Market Value vs Investment Cost */}
+
+        <div className="pt-28">
           <h1 className="text-[36px] font-medium text-gray-900 mb-6">
             Market Value vs Investment Cost
           </h1>
@@ -202,7 +205,7 @@ export default function DashboardAnalytics() {
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-[#B8E6FE] border-2 border-[#D1D0FF] rounded-full"></div>
+              <div className="w-6 h-6 bg-[#B8E6FE] border-2 border-gray-50 rounded-full"></div>
               <span className="text-[15px] font-semibold text-gray-700">
                 Investment
               </span>
@@ -227,7 +230,7 @@ export default function DashboardAnalytics() {
                     }}
                   ></div>
                 ))}
-                <div className="flex justify-around items-end h-full px-4">
+                <div className="flex justify-around items-end h-full px-4 mt-6">
                   {chartData.map((item, index) => (
                     <div
                       key={index}
@@ -279,10 +282,10 @@ export default function DashboardAnalytics() {
             </div>
           </div>
         </div>
-
+        {/*Cost of investment over times  */}
         <div className="pt-10">
           <h1 className="text-[36px] font-medium text-gray-900 mb-6">
-            Market value vs investment cost
+            Cost of investment over time
           </h1>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart
@@ -324,23 +327,37 @@ export default function DashboardAnalytics() {
           >
             {tooltip.chart === "profitLoss" && (
               <>
-                <div><strong>Month:</strong> {tooltip.content.month}</div>
+                <div>
+                  <strong>Month:</strong> {tooltip.content.month}
+                </div>
                 {tooltip.content.profit && (
-                  <div><strong>Profit:</strong> ${tooltip.content.profit}</div>
+                  <div>
+                    <strong>Profit:</strong> ${tooltip.content.profit}
+                  </div>
                 )}
                 {tooltip.content.loss && (
-                  <div><strong>Loss:</strong> ${tooltip.content.loss}</div>
+                  <div>
+                    <strong>Loss:</strong> ${tooltip.content.loss}
+                  </div>
                 )}
               </>
             )}
             {tooltip.chart === "marketInvestment" && (
               <>
-                <div><strong>Company:</strong> {tooltip.content.company}</div>
+                <div>
+                  <strong>Company:</strong> {tooltip.content.company}
+                </div>
                 {tooltip.content.marketValue && (
-                  <div><strong>Market Value:</strong> ${tooltip.content.marketValue.toLocaleString()}</div>
+                  <div>
+                    <strong>Market Value:</strong> $
+                    {tooltip.content.marketValue.toLocaleString()}
+                  </div>
                 )}
                 {tooltip.content.investment && (
-                  <div><strong>Investment:</strong> ${tooltip.content.investment.toLocaleString()}</div>
+                  <div>
+                    <strong>Investment:</strong> $
+                    {tooltip.content.investment.toLocaleString()}
+                  </div>
                 )}
               </>
             )}
