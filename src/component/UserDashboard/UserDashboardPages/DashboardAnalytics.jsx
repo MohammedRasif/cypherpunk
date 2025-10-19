@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   CartesianGrid,
   Line,
@@ -11,6 +12,14 @@ import {
 } from "recharts";
 
 export default function DashboardAnalytics() {
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    content: null,
+    chart: null, // To identify which chart the tooltip belongs to
+  });
+
   const data = [
     { month: "Jan", profit: 100, loss: 90 },
     { month: "Feb", profit: 120, loss: 100 },
@@ -32,23 +41,21 @@ export default function DashboardAnalytics() {
 
   const chartData = [
     { company: "AAPL", marketValue: 3000, investment: 1000 },
-    { company: "JPM", marketValue: 72000, investment: 45000 },
-    { company: "Coca-Cola", marketValue: 38000, investment: 25000 },
+    { company: "JPM", marketValue: 72000, investment: 4000 },
+    { company: "Coca-Cola", marketValue: 700, investment: 10 },
     { company: "Netflix", marketValue: 8000, investment: 100 },
     { company: "Merck", marketValue: 1000, investment: 100 },
     { company: "UNH", marketValue: 900, investment: 700 },
     { company: "Tesla", marketValue: 98000, investment: 55000 },
     { company: "Amazon", marketValue: 8000, investment: 6000 },
     { company: "Google", marketValue: 20, investment: 10 },
-    { company: "Meta", marketValue: 76000, investment: 50000 },
+    { company: "Meta", marketValue: 7000, investment: 1000 },
     { company: "NVIDIA", marketValue: 500, investment: 200 },
   ];
 
-  // Logarithmic scale values
   const yAxisValues = [100, 1000, 10000, 100000];
   const maxValue = 100000;
 
-  // Function to calculate bar height based on logarithmic scale
   const getBarHeight = (value) => {
     if (value <= 0) return 0;
     const logValue = Math.log10(value);
@@ -60,26 +67,38 @@ export default function DashboardAnalytics() {
     { date: "1 Apr", cost: 25000 },
     { date: "1 Dec", cost: 75000 },
     { date: "1 Apr", cost: 125000 },
-    { date: "1 AUG", cost: 250000 },
-    { date: "1 July", cost: 700000 },
-    { date: "1 July", cost: 500000 },
-    { date: "1 July", cost: 750000 },
-    { date: "1 July", cost: 900000 },
-    { date: "1 July", cost: 1000000 },
-    { date: "1 July", cost: 750000 },
-    { date: "1 July", cost: 900000 },
-    { date: "1 July", cost: 500000 },
+    { date: "1 Aug", cost: 250000 },
+    { date: "1 Jul", cost: 700000 },
+    { date: "1 Jul", cost: 500000 },
+    { date: "1 Jul", cost: 750000 },
+    { date: "1 Jul", cost: 900000 },
+    { date: "1 Jul", cost: 1000000 },
+    { date: "1 Jul", cost: 750000 },
+    { date: "1 Jul", cost: 900000 },
+    { date: "1 Jul", cost: 500000 },
   ];
+
+  const handleMouseEnter = (e, content, chart) => {
+    setTooltip({
+      visible: true,
+      x: e.clientX,
+      y: e.clientY,
+      content,
+      chart,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTooltip({ visible: false, x: 0, y: 0, content: null, chart: null });
+  };
 
   return (
     <div className="w-full h-screen bg-white roboto">
       <div className="container mx-auto">
         <div>
-          {/* Title */}
           <h1 className="text-[36px] font-medium text-gray-900 mb-6">
             Monthly Profit & Loss Comparison
           </h1>
-          {/* Legend */}
           <div className="flex gap-6 mb-8">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 bg-[#8280FF] border-2 border-[#D1D0FF] rounded-full"></div>
@@ -96,7 +115,6 @@ export default function DashboardAnalytics() {
           </div>
           <div className="">
             <div className="flex gap-4">
-              {/* Updated Y-Axis Labels (Centered at $00) */}
               <div className="flex flex-col justify-between items-end w-12 h-[40vh] text-[16px] text-gray-500 pr-2">
                 <span>$10000</span> <span>$5000</span>
                 <span>$1000</span> <span>$100</span>
@@ -104,57 +122,68 @@ export default function DashboardAnalytics() {
                 <span>$-100</span> <span>$-1000</span>
                 <span>$-5000</span> <span>$-10000</span>
               </div>
-              {/* Chart Area */}
-              <div className="flex-1">
-                {/* Grid Lines */}
-                <div className="relative h-[40vh] border-gray-300">
-                  <div className="absolute inset-0 flex flex-col justify-between pointer-events-none py-2">
-                    <div className="border-t border-dashed border-gray-300 w-full"></div>
-                    <div className="border-t border-dashed border-gray-300 w-full"></div>
-                    <div className="border-t border-dashed border-gray-300 w-full"></div>
-                    <div className="border-t border-dashed border-gray-300 w-full"></div>
-                    <div className="border-t border-dashed border-gray-300 w-full"></div>
-                    <div className="border-t border-dashed border-gray-300 w-full"></div>
-                    <div className="border-t border-dashed border-gray-300 w-full"></div>
-                    <div className="border-t border-dashed border-gray-300 w-full"></div>
-                    <div className="border-t border-dashed border-gray-300 w-full"></div>
-                  </div>
-                  <div className="absolute inset-0 flex justify-around px-4 ">
-                    {data.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex flex-col items-center gap-1 flex-1 max-w-12 h-full mt-[10px]"
-                      >
-                        <div className="flex gap-[2px] w-full h-full relative ">
-                          <div className="absolute w-full top-[50%] h-[1px] "></div>
-                          <div
-                            className="bg-gradient-to-t from-[#8280FF] from-90% to-[#D1D0FF] to-100% rounded-t-lg transition-all hover:opacity-80 absolute bottom-[50%] "
-                            style={{
-                              width: "35px",
-                              height: `${
-                                (item.profit / maxAbsoluteValue) *
-                                halfChartHeight
-                              }px`,
-                              left: "calc(50% - 37px)",
-                            }}
-                          ></div>
-                          <div
-                            className="bg-gradient-to-b from-[#FF8082] from-88% to-[#D1D0FF] to-100% rounded-b-lg transition-all hover:opacity-80 absolute top-[50%]"
-                            style={{
-                              width: "35px",
-                              height: `${
-                                (item.loss / maxAbsoluteValue) * halfChartHeight
-                              }px`,
-                              left: "calc(50% - 0px)",
-                            }}
-                          ></div>
-                        </div>
-                        <span className="text-xs text-gray-600  font-medium">
-                          {item.month}
-                        </span>
+              <div className="flex-1 relative">
+                <div className="absolute inset-0 flex flex-col justify-between pointer-events-none py-2">
+                  <div className="border-t border-dashed border-gray-300 w-full"></div>
+                  <div className="border-t border-dashed border-gray-300 w-full"></div>
+                  <div className="border-t border-dashed border-gray-300 w-full"></div>
+                  <div className="border-t border-dashed border-gray-300 w-full"></div>
+                  <div className="border-t border-dashed border-gray-300 w-full"></div>
+                  <div className="border-t border-dashed border-gray-300 w-full"></div>
+                  <div className="border-t border-dashed border-gray-300 w-full"></div>
+                  <div className="border-t border-dashed border-gray-300 w-full"></div>
+                  <div className="border-t border-dashed border-gray-300 w-full"></div>
+                </div>
+                <div className="absolute inset-0 flex justify-around px-4">
+                  {data.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-center gap-1 flex-1 max-w-12 h-full mt-[10px]"
+                    >
+                      <div className="flex gap-[2px] w-full h-full relative">
+                        <div className="absolute w-full top-[50%] h-[1px]"></div>
+                        <div
+                          className="bg-gradient-to-t from-[#8280FF] from-90% to-[#D1D0FF] to-100% rounded-t-lg transition-all hover:opacity-80 absolute bottom-[50%]"
+                          style={{
+                            width: "35px",
+                            height: `${
+                              (item.profit / maxAbsoluteValue) * halfChartHeight
+                            }px`,
+                            left: "calc(50% - 37px)",
+                          }}
+                          onMouseEnter={(e) =>
+                            handleMouseEnter(
+                              e,
+                              { month: item.month, profit: item.profit },
+                              "profitLoss"
+                            )
+                          }
+                          onMouseLeave={handleMouseLeave}
+                        ></div>
+                        <div
+                          className="bg-gradient-to-b from-[#FF8082] from-88% to-[#D1D0FF] to-100% rounded-b-lg transition-all hover:opacity-80 absolute top-[50%]"
+                          style={{
+                            width: "35px",
+                            height: `${
+                              (item.loss / maxAbsoluteValue) * halfChartHeight
+                            }px`,
+                            left: "calc(50% - 0px)",
+                          }}
+                          onMouseEnter={(e) =>
+                            handleMouseEnter(
+                              e,
+                              { month: item.month, loss: item.loss },
+                              "profitLoss"
+                            )
+                          }
+                          onMouseLeave={handleMouseLeave}
+                        ></div>
                       </div>
-                    ))}
-                  </div>
+                      <span className="text-xs text-gray-600 font-medium">
+                        {item.month}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -162,28 +191,25 @@ export default function DashboardAnalytics() {
         </div>
 
         <div className="pt-10">
-          {/* Title */}
           <h1 className="text-[36px] font-medium text-gray-900 mb-6">
-            Monthly Profit & Loss Comparison
+            Market Value vs Investment Cost
           </h1>
-          {/* Legend */}
           <div className="flex gap-6 mb-8">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 bg-[#00BCFF] border-2 border-[#D1D0FF] rounded-full"></div>
               <span className="text-[15px] font-semibold text-gray-700">
-                Profit
+                Market Value
               </span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 bg-[#B8E6FE] border-2 border-[#D1D0FF] rounded-full"></div>
               <span className="text-[15px] font-semibold text-gray-700">
-                Loss
+                Investment
               </span>
             </div>
           </div>
           <div>
             <div className="flex gap-8">
-              {/* Y-Axis Labels */}
               <div className="flex flex-col justify-between items-end h-80 text-[16px] text-gray-500">
                 {yAxisValues.reverse().map((value) => (
                   <div key={value}>
@@ -191,48 +217,63 @@ export default function DashboardAnalytics() {
                   </div>
                 ))}
               </div>
-
-              {/* Chart Area */}
-              <div className="flex-1">
-                <div className="relative h-80  ">
-                  {/* Horizontal Grid Lines */}
-                  {yAxisValues.map((value, index) => (
+              <div className="flex-1 relative">
+                {yAxisValues.map((value, index) => (
+                  <div
+                    key={`grid-${value}`}
+                    className="absolute w-full border-t border-gray-200 z-10"
+                    style={{
+                      bottom: `${(index / (yAxisValues.length - 1)) * 100}%`,
+                    }}
+                  ></div>
+                ))}
+                <div className="flex justify-around items-end h-full px-4">
+                  {chartData.map((item, index) => (
                     <div
-                      key={`grid-${value}`}
-                      className="absolute w-full border-t border-gray-200 z-10"
-                      style={{
-                        bottom: `${(index / (yAxisValues.length - 1)) * 100}%`,
-                      }}
-                    ></div>
-                  ))}
-
-                  {/* Bars Container */}
-                  <div className="flex justify-around items-end h-full px-4 ">
-                    {chartData.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex flex-col items-center gap-2 "
-                      >
-                        <div className="flex items-end h-64 z-30">
-                          <div
-                            className="w-[36px] bg-gradient-to-t from-[#00BCFF] from-93% to-[#D1D0FF] to-100% rounded-t-lg transition-all duration-300"
-                            style={{
-                              height: `${getBarHeight(item.marketValue)}%`,
-                            }}
-                          ></div>
-                          <div
-                            className="w-[36px] bg-gradient-to-t from-[#B8E6FE] from-95% to-[#D1D0FF] to-100% rounded-t-lg transition-all duration-300"
-                            style={{
-                              height: `${getBarHeight(item.investment)}%`,
-                            }}
-                          ></div>
-                        </div>
-                        <span className="text-xs text-gray-600 text-center w-16 truncate">
-                          {item.company}
-                        </span>
+                      key={index}
+                      className="flex flex-col items-center gap-2"
+                    >
+                      <div className="flex items-end h-64 z-30">
+                        <div
+                          className="w-[36px] bg-gradient-to-t from-[#00BCFF] from-93% to-[#D1D0FF] to-100% rounded-t-lg transition-all duration-300"
+                          style={{
+                            height: `${getBarHeight(item.marketValue)}%`,
+                          }}
+                          onMouseEnter={(e) =>
+                            handleMouseEnter(
+                              e,
+                              {
+                                company: item.company,
+                                marketValue: item.marketValue,
+                              },
+                              "marketInvestment"
+                            )
+                          }
+                          onMouseLeave={handleMouseLeave}
+                        ></div>
+                        <div
+                          className="w-[36px] bg-gradient-to-t from-[#B8E6FE] from-95% to-[#D1D0FF] to-100% rounded-t-lg transition-all duration-300"
+                          style={{
+                            height: `${getBarHeight(item.investment)}%`,
+                          }}
+                          onMouseEnter={(e) =>
+                            handleMouseEnter(
+                              e,
+                              {
+                                company: item.company,
+                                investment: item.investment,
+                              },
+                              "marketInvestment"
+                            )
+                          }
+                          onMouseLeave={handleMouseLeave}
+                        ></div>
                       </div>
-                    ))}
-                  </div>
+                      <span className="text-xs text-gray-600 text-center w-16 truncate">
+                        {item.company}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -270,6 +311,41 @@ export default function DashboardAnalytics() {
             </LineChart>
           </ResponsiveContainer>
         </div>
+
+        {/* Tooltip Component */}
+        {tooltip.visible && (
+          <div
+            className="absolute bg-white border border-gray-200 rounded-lg shadow-lg p-2 text-sm text-gray-700 z-50"
+            style={{
+              left: tooltip.x + 10,
+              top: tooltip.y - 10,
+              pointerEvents: "none",
+            }}
+          >
+            {tooltip.chart === "profitLoss" && (
+              <>
+                <div><strong>Month:</strong> {tooltip.content.month}</div>
+                {tooltip.content.profit && (
+                  <div><strong>Profit:</strong> ${tooltip.content.profit}</div>
+                )}
+                {tooltip.content.loss && (
+                  <div><strong>Loss:</strong> ${tooltip.content.loss}</div>
+                )}
+              </>
+            )}
+            {tooltip.chart === "marketInvestment" && (
+              <>
+                <div><strong>Company:</strong> {tooltip.content.company}</div>
+                {tooltip.content.marketValue && (
+                  <div><strong>Market Value:</strong> ${tooltip.content.marketValue.toLocaleString()}</div>
+                )}
+                {tooltip.content.investment && (
+                  <div><strong>Investment:</strong> ${tooltip.content.investment.toLocaleString()}</div>
+                )}
+              </>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
