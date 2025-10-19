@@ -30,6 +30,32 @@ export default function DashboardAnalytics() {
   const chartHeightInPixels = 250;
   const halfChartHeight = chartHeightInPixels / 2;
 
+  const chartData = [
+    { company: "AAPL", marketValue: 3000, investment: 1000 },
+    { company: "JPM", marketValue: 72000, investment: 45000 },
+    { company: "Coca-Cola", marketValue: 38000, investment: 25000 },
+    { company: "Netflix", marketValue: 8000, investment: 100 },
+    { company: "Merck", marketValue: 1000, investment: 100 },
+    { company: "UNH", marketValue: 900, investment: 700 },
+    { company: "Tesla", marketValue: 98000, investment: 55000 },
+    { company: "Amazon", marketValue: 8000, investment: 6000 },
+    { company: "Google", marketValue: 20, investment: 10 },
+    { company: "Meta", marketValue: 76000, investment: 50000 },
+    { company: "NVIDIA", marketValue: 500, investment: 200 },
+  ];
+
+  // Logarithmic scale values
+  const yAxisValues = [100, 1000, 10000, 100000];
+  const maxValue = 100000;
+
+  // Function to calculate bar height based on logarithmic scale
+  const getBarHeight = (value) => {
+    if (value <= 0) return 0;
+    const logValue = Math.log10(value);
+    const logMax = Math.log10(maxValue);
+    return (logValue / logMax) * 100;
+  };
+
   const investmentTrendData = [
     { date: "1 Apr", cost: 25000 },
     { date: "1 Dec", cost: 75000 },
@@ -125,6 +151,84 @@ export default function DashboardAnalytics() {
                         </div>
                         <span className="text-xs text-gray-600  font-medium">
                           {item.month}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-10">
+          {/* Title */}
+          <h1 className="text-[36px] font-medium text-gray-900 mb-6">
+            Monthly Profit & Loss Comparison
+          </h1>
+          {/* Legend */}
+          <div className="flex gap-6 mb-8">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-[#00BCFF] border-2 border-[#D1D0FF] rounded-full"></div>
+              <span className="text-[15px] font-semibold text-gray-700">
+                Profit
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-[#B8E6FE] border-2 border-[#D1D0FF] rounded-full"></div>
+              <span className="text-[15px] font-semibold text-gray-700">
+                Loss
+              </span>
+            </div>
+          </div>
+          <div>
+            <div className="flex gap-8">
+              {/* Y-Axis Labels */}
+              <div className="flex flex-col justify-between items-end h-80 text-[16px] text-gray-500">
+                {yAxisValues.reverse().map((value) => (
+                  <div key={value}>
+                    ${value >= 1000 ? (value / 1000).toFixed(0) + "k" : value}
+                  </div>
+                ))}
+              </div>
+
+              {/* Chart Area */}
+              <div className="flex-1">
+                <div className="relative h-80  ">
+                  {/* Horizontal Grid Lines */}
+                  {yAxisValues.map((value, index) => (
+                    <div
+                      key={`grid-${value}`}
+                      className="absolute w-full border-t border-gray-200 z-10"
+                      style={{
+                        bottom: `${(index / (yAxisValues.length - 1)) * 100}%`,
+                      }}
+                    ></div>
+                  ))}
+
+                  {/* Bars Container */}
+                  <div className="flex justify-around items-end h-full px-4 ">
+                    {chartData.map((item, index) => (
+                      <div
+                        key={index}
+                        className="flex flex-col items-center gap-2 "
+                      >
+                        <div className="flex items-end h-64 z-30">
+                          <div
+                            className="w-[36px] bg-gradient-to-t from-[#00BCFF] from-93% to-[#D1D0FF] to-100% rounded-t-lg transition-all duration-300"
+                            style={{
+                              height: `${getBarHeight(item.marketValue)}%`,
+                            }}
+                          ></div>
+                          <div
+                            className="w-[36px] bg-gradient-to-t from-[#B8E6FE] from-95% to-[#D1D0FF] to-100% rounded-t-lg transition-all duration-300"
+                            style={{
+                              height: `${getBarHeight(item.investment)}%`,
+                            }}
+                          ></div>
+                        </div>
+                        <span className="text-xs text-gray-600 text-center w-16 truncate">
+                          {item.company}
                         </span>
                       </div>
                     ))}
