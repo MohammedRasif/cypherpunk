@@ -7,6 +7,7 @@ import Dashboard from "./component/UserDashboard/UserDashboardPages/Dashboard.js
 import DashboardTrade from "./component/UserDashboard/UserDashboardPages/DashboardTrade.jsx";
 import DashboardSocialFeed from "./component/UserDashboard/UserDashboardPages/DashboardSocialFeed.jsx";
 import DashboardAnalytics from "./component/UserDashboard/UserDashboardPages/DashboardAnalytics.jsx";
+import DashboardProfile from "./component/UserDashboard/UserDashboardPages/DashboardProfile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
     element: <UserDashboardLayout />,
     children: [
       {
-        index: true, // This makes it the default route for "/"
+        index: true, 
         element: <Dashboard />,
       },
       {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "analytics", 
         element: <DashboardAnalytics />, 
+      },
+      {
+        path: "profile", 
+        element: <DashboardProfile />, 
       },
     ],
   },

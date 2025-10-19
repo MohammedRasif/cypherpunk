@@ -21,12 +21,12 @@ export default function DashboardAnalytics() {
   });
 
   const data = [
-    { month: "Jan", profit: 100, loss: 90 },
+    { month: "Jan", profit: 200, loss: 90 },
     { month: "Feb", profit: 120, loss: 100 },
-    { month: "Mar", profit: 95, loss: 90 },
-    { month: "Apr", profit: 110, loss: 130 },
+    { month: "Mar", profit: 100, loss: 90 },
+    { month: "Apr", profit: 180, loss: 130 },
     { month: "May", profit: 105, loss: 120 },
-    { month: "Jun", profit: 115, loss: 140 },
+    { month: "Jun", profit: 160, loss: 140 },
     { month: "Jul", profit: 100, loss: 111 },
     { month: "Aug", profit: 125, loss: 90 },
     { month: "Sep", profit: 110, loss: 100 },

@@ -28,7 +28,7 @@ function DashboardSocialFeed() {
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam nec et cum sed pellentesque sagittis risus.",
       image:
-        "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529180/cld-sample-2.jpg",
+        "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529179/cld-sample.jpg",
       likes: 12,
       commentCount: 7,
       comments: [
@@ -36,14 +36,14 @@ function DashboardSocialFeed() {
           id: 1,
           author: "Erin Johnson",
           avatar:
-            "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1759822517/1_2LywpPsQnnuRwQpDVrydAQ_cfd3ev.jpg",
+            "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529179/samples/upscale-face-1.jpg",
           text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam nec et cum sed pellentesque sagittis risus.",
           replies: [
             {
               id: 1,
               author: "Mike Johnson",
               avatar:
-                "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1759822517/1_yjcdof.jpg",
+                "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529178/samples/man-portrait.jpg",
               text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam nec et cum sed pellentesque sagittis risus.",
             },
           ],
@@ -54,7 +54,7 @@ function DashboardSocialFeed() {
       id: 2,
       author: "Sarah Chen",
       avatar:
-        "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1759812746/day-picture-id1163588010_xjbdnc.jpg",
+        "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529177/samples/look-up.jpg",
       timeAgo: "2 hours ago",
       content: "RIVN: STLA + Fiserv @ $242.00",
       description:
@@ -66,7 +66,7 @@ function DashboardSocialFeed() {
           id: 1,
           author: "Erin Johnson",
           avatar:
-            "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529179/cld-sample.jpg",
+            "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529177/samples/smile.jpg",
           text: "Great analysis! The production numbers are impressive.",
           replies: [],
         },
@@ -268,9 +268,7 @@ function DashboardSocialFeed() {
                     <button className="text-gray-500 hover:text-gray-700">
                       <ImageIcon size={18} />
                     </button>
-                    <button className="text-gray-500 hover:text-gray-700">
-                      <Smile size={18} />
-                    </button>
+                    
                   </div>
                 </div>
               </div>

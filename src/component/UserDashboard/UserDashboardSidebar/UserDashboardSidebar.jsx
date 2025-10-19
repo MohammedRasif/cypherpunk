@@ -15,7 +15,11 @@ import { IoLogOut, IoSettings } from "react-icons/io5";
 import { PiChartLineFill } from "react-icons/pi";
 import { Link, useLocation } from "react-router-dom";
 
-const UserDashboardSidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
+const UserDashboardSidebar = ({
+  isSidebarOpen,
+  setIsSidebarOpen,
+  isMobile,
+}) => {
   // Get the current location
   const location = useLocation();
 
@@ -45,7 +49,12 @@ const UserDashboardSidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => 
       path: "/analytics",
       active: location.pathname === "/analytics",
     },
-    { name: "Log out", icon: <IoLogOut size={24} />, path: "/logout", active: location.pathname === "/logout" },
+    {
+      name: "Log out",
+      icon: <IoLogOut size={24} />,
+      path: "/logout",
+      active: location.pathname === "/logout",
+    },
   ];
 
   // Close sidebar on mobile when a link is clicked
@@ -121,13 +130,17 @@ const UserDashboardSidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => 
       </nav>
 
       {isSidebarOpen && (
-        <div className="mt-auto flex items-center space-x-2 p-2 rounded-full border border-gray-200 bg-gray-50">
+        <Link
+          to="/profile"
+          className="mt-auto flex items-center space-x-2 p-2 rounded-full border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+          aria-label="User Profile"
+        >
           <div className="w-9 h-9 bg-gray-300 rounded-full flex items-center justify-center">
             {/* Placeholder for user image */}
             <img
               src="https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529179/samples/woman-on-a-football-field.jpg"
               className="rounded-full"
-              alt=""
+              alt="User Profile"
             />
           </div>
           <div className="flex-1">
@@ -136,7 +149,7 @@ const UserDashboardSidebar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => 
             </span>
           </div>
           <IoSettings size={24} className="text-gray-500 object-cover" />
-        </div>
+        </Link>
       )}
     </div>
   );
