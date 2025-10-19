@@ -6,6 +6,7 @@ import UserDashboardLayout from "./component/UserDashboard/UserDashboardLayout/U
 import Dashboard from "./component/UserDashboard/UserDashboardPages/Dashboard.jsx";
 import DashboardTrade from "./component/UserDashboard/UserDashboardPages/DashboardTrade.jsx";
 import DashboardSocialFeed from "./component/UserDashboard/UserDashboardPages/DashboardSocialFeed.jsx";
+import DashboardAnalytics from "./component/UserDashboard/UserDashboardPages/DashboardAnalytics.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "social-feed", 
         element: <DashboardSocialFeed />, 
+      },
+      {
+        path: "analytics", 
+        element: <DashboardAnalytics />, 
       },
     ],
   },
