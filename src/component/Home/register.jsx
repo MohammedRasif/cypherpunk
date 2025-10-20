@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 function Register() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-blue-100 p-4">
-      <div className="bg-white rounded-xl shadow-2xl flex w-full max-w-7xl overflow-hidden">
+      <div className="bg-white rounded-3xl shadow-2xl flex w-full max-w-7xl overflow-hidden lg:h-[75vh]">
         {/* Input/Form Section (Left Side) */}
         <div className="w-1/2 p-12">
           <h2 className="text-3xl font-extrabold mb-8 text-gray-900">
@@ -14,7 +14,7 @@ function Register() {
           </h2>
 
           {/* Continue with Google */}
-          <button className="flex items-center justify-center w-full py-2 bg-gray-200  mb-6 rounded-xl text-gray-700 hover:bg-gray-50 transition duration-200">
+          <button className="flex items-center justify-center font-bold w-full py-2 bg-gray-200  mb-6 rounded-xl text-gray-700 hover:bg-gray-50 transition duration-200">
             <FcGoogle size={30} />
             Continue with Google
           </button>

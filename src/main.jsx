@@ -11,6 +11,9 @@ import DashboardProfile from "./component/UserDashboard/UserDashboardPages/Dashb
 import { TranslationProvider } from "./context/TranslationContext.jsx";
 import Login from "./component/Home/Login.jsx";
 import Register from "./component/Home/register.jsx";
+import ForgetPassword from "./component/Home/ForgetPassword.jsx";
+import Verification from "./component/Home/Verification.jsx";
+import CreateNewPassword from "./component/Home/CreateNewPassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,12 +29,24 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login/>,
+    element: <Login />,
   },
   {
     path: "/register",
-    element: <Register/>,
-  }
+    element: <Register />,
+  },
+  {
+    path: "/forget-password",
+    element: <ForgetPassword />,
+  },
+  {
+    path: "/verification",
+    element: <Verification />,
+  },
+  {
+    path: "/create-new-password",
+    element: <CreateNewPassword />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(

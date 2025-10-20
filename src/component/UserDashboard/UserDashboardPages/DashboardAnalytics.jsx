@@ -144,7 +144,7 @@ export default function DashboardAnalytics() {
                       <div className="flex gap-[2px] w-full h-full relative">
                         <div className="absolute w-full top-[50%] h-[1px]"></div>
                         <div
-                          className="bg-gradient-to-t from-[#8280FF] from-90% to-[#D1D0FF] to-100% rounded-t-lg transition-all hover:opacity-80 absolute bottom-[50%]"
+                          className="bg-gradient-to-t from-[#8280FF]  from-90% to-[#D1D0FF] to-100% rounded-t-lg transition-all hover:opacity-80 absolute bottom-[50%]"
                           style={{
                             width: window.innerWidth < 768 ? "18px" : "35px",
                             height: `${
@@ -238,7 +238,7 @@ export default function DashboardAnalytics() {
                     >
                       <div className="flex items-end h-64 z-30">
                         <div
-                          className="w-[36px] bg-gradient-to-t from-[#00BCFF] from-93% to-[#D1D0FF] to-100% rounded-t-lg transition-all duration-300"
+                          className="w-[35px] bg-gradient-to-t from-[#00BCFF] from-93% to-[#D1D0FF] to-100% rounded-t-lg transition-all duration-300"
                           style={{
                             height: `${getBarHeight(item.marketValue)}%`,
                           }}
@@ -255,7 +255,7 @@ export default function DashboardAnalytics() {
                           onMouseLeave={handleMouseLeave}
                         ></div>
                         <div
-                          className="w-[36px] bg-gradient-to-t from-[#B8E6FE] from-95% to-[#D1D0FF] to-100% rounded-t-lg transition-all duration-300"
+                          className="w-[35px] bg-gradient-to-t from-[#B8E6FE] from-95% to-gray-100 to-100% rounded-t-lg transition-all duration-300"
                           style={{
                             height: `${getBarHeight(item.investment)}%`,
                           }}

@@ -6,13 +6,13 @@ import { NavLink } from "react-router-dom";
 function Login() {
   return (
     <div className="lg:flex items-center justify-center min-h-screen bg-blue-100 p-4 ">
-      <div className="bg-white rounded-3xl shadow-lg lg:flex w-full max-w-7xl pt-10 lg:h-[70vh]">
+      <div className="bg-white rounded-3xl shadow-2xl lg:flex w-full max-w-7xl pt-10 lg:h-[75vh]">
         {/* input field section */}
         <div className="lg:w-1/2 p-10">
           <h2 className="text-3xl font-bold mb-8 text-gray-800">Log in</h2>
 
           {/* Continue with Google */}
-          <button className="flex items-center justify-center w-full py-2 bg-gray-200  mb-6 rounded-xl text-gray-700 hover:bg-gray-50 transition duration-200">
+          <button className="flex items-center justify-center w-full font-bold py-2 bg-gray-200  mb-6 rounded-xl text-gray-700 hover:bg-gray-50 transition duration-200">
             <FcGoogle size={30} />
             Continue with Google
           </button>
@@ -23,7 +23,6 @@ function Login() {
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
 
-          {/* Email field */}
           <div className="mb-4">
             <label
               htmlFor="email"
