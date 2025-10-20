@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import {
   AiOutlineUser,
   AiOutlineLineChart,
@@ -22,6 +23,8 @@ const UserDashboardSidebar = ({
 }) => {
   // Get the current location
   const location = useLocation();
+  const { t, i18n } = useTranslation();
+    const isFrench = i18n.language === "fr";
 
   // Navigation items
   const navItems = [
@@ -72,7 +75,7 @@ const UserDashboardSidebar = ({
   };
 
   return (
-    <div className="h-full flex flex-col justify-between p-8 bg-white roboto">
+    <div className="h-full flex flex-col justify-between p-8 bg-white roboto" >
       {/* Sidebar Header/Logo */}
       <div className="flex items-center justify-between mb-8">
         {isSidebarOpen && (

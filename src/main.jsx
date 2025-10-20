@@ -8,38 +8,31 @@ import DashboardTrade from "./component/UserDashboard/UserDashboardPages/Dashboa
 import DashboardSocialFeed from "./component/UserDashboard/UserDashboardPages/DashboardSocialFeed.jsx";
 import DashboardAnalytics from "./component/UserDashboard/UserDashboardPages/DashboardAnalytics.jsx";
 import DashboardProfile from "./component/UserDashboard/UserDashboardPages/DashboardProfile.jsx";
+import { TranslationProvider } from "./context/TranslationContext.jsx";
+import Login from "./component/Home/Login.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <UserDashboardLayout />,
     children: [
-      {
-        index: true, 
-        element: <Dashboard />,
-      },
-      {
-        path: "trade", 
-        element: <DashboardTrade />, 
-      },
-      {
-        path: "social-feed", 
-        element: <DashboardSocialFeed />, 
-      },
-      {
-        path: "analytics", 
-        element: <DashboardAnalytics />, 
-      },
-      {
-        path: "profile", 
-        element: <DashboardProfile />, 
-      },
+      { index: true, element: <Dashboard /> },
+      { path: "trade", element: <DashboardTrade /> },
+      { path: "social-feed", element: <DashboardSocialFeed /> },
+      { path: "analytics", element: <DashboardAnalytics /> },
+      { path: "profile", element: <DashboardProfile /> },
     ],
   },
+  {
+    path: "/login",
+    element: <Login/>,
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <TranslationProvider>
+      <RouterProvider router={router} />
+    </TranslationProvider>
   </StrictMode>
 );
