@@ -10,6 +10,7 @@ import DashboardAnalytics from "./component/UserDashboard/UserDashboardPages/Das
 import DashboardProfile from "./component/UserDashboard/UserDashboardPages/DashboardProfile.jsx";
 import { TranslationProvider } from "./context/TranslationContext.jsx";
 import Login from "./component/Home/Login.jsx";
+import Register from "./component/Home/register.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login/>,
+  },
+  {
+    path: "/register",
+    element: <Register/>,
   }
 ]);
 

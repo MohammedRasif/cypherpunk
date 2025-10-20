@@ -1,11 +1,12 @@
 import React from "react";
 import img from "../../assets/image/rafiki.png"; // Assuming this is the path to your provided image
 import { FcGoogle } from "react-icons/fc";
+import { NavLink } from "react-router-dom";
 
 function Login() {
   return (
-    <div className="lg:flex items-center justify-center min-h-screen bg-blue-100 p-4">
-      <div className="bg-white rounded-3xl shadow-lg lg:flex w-full max-w-7xl lg:h-[70vh]">
+    <div className="lg:flex items-center justify-center min-h-screen bg-blue-100 p-4 ">
+      <div className="bg-white rounded-3xl shadow-lg lg:flex w-full max-w-7xl pt-10 lg:h-[70vh]">
         {/* input field section */}
         <div className="lg:w-1/2 p-10">
           <h2 className="text-3xl font-bold mb-8 text-gray-800">Log in</h2>
@@ -85,9 +86,9 @@ function Login() {
 
           <p className="mt-6 text-center text-gray-600">
             Don't have an account?{" "}
-            <a href="#" className="text-blue-600 hover:underline font-semibold">
+             <NavLink to="/register" className="text-blue-600 hover:underline font-semibold">
               Sign up
-            </a>
+            </NavLink>
           </p>
         </div>
 
