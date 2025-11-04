@@ -144,7 +144,7 @@ function Login() {
             </p>
           </div>
 
-          <div className="lg:w-1/2 flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
+          <div className="lg:w-1/2 flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-r-3xl">
             <img
               src={img}
               alt="Global business illustration"

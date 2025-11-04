@@ -3,13 +3,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://cowbird-central-crawdad.ngrok-free.app/",
+    baseUrl: "http://10.10.13.60:8004/api",
     prepareHeaders: (headers) => {
       headers.set("ngrok-skip-browser-warning", "true");
       return headers;
     },
   }),
-  // Define tag types for cache management
   tagTypes: ["User", "Agency", "TourPlan"],
   endpoints: (builder) => ({
 
@@ -23,19 +22,18 @@ export const baseApi = createApi({
     }),
 
 
-    // User-related mutations
-    createUser: builder.mutation({
+    register: builder.mutation({
       query: (userData) => ({
-        url: "/accounts/web/register/company/",
+        url: "/accounts/signup/",
         method: "POST",
         body: userData,
       }),
       invalidatesTags: ["User"], 
     }),
 
-    verifyEmail: builder.mutation({
+    verifyRegisterEmail: builder.mutation({
       query: (email) => ({
-        url: "/accounts/auth/verify-otp/",
+        url: "/accounts/verify-otp/",
         method: "POST",
         body: email,
       }),
@@ -89,12 +87,8 @@ export const baseApi = createApi({
 });
 
 export const {
-  useCreateUserMutation,
-  useLogInMutation,
-  useForgetPasswordMutation,
-  useOtpVerifyMutation,
-  useVerifyEmailMutation,
-  useUpdatePasswordMutation,
   useGoogleLoginMutation,
+  useRegisterMutation,
+  useVerifyRegisterEmailMutation,
  
 } = baseApi;

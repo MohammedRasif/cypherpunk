@@ -17,6 +17,7 @@ import CreateNewPassword from "./component/Home/CreateNewPassword.jsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import RegisterVerification from "./component/Home/RegisterVerification.jsx";
 
 const CLINT_ID =
   "968286436200-7if31tvqbolu41g359vmf8eet6pfcf8u.apps.googleusercontent.com";
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/verification",
     element: <Verification />,
+  },
+  {
+    path: "/register_verification",
+    element: <RegisterVerification />,
   },
   {
     path: "/create-new-password",
