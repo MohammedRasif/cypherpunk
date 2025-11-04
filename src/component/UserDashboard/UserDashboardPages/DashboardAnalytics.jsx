@@ -72,7 +72,7 @@ export default function DashboardAnalytics() {
     { date: "1 Jul", cost: 500000 },
     { date: "1 Jul", cost: 750000 },
     { date: "1 Jul", cost: 900000 },
-    { date: "1 Jul", cost: 1000000 },
+    { date: "1 Jul", cost: 100000 },
     { date: "1 Jul", cost: 750000 },
     { date: "1 Jul", cost: 900000 },
     { date: "1 Jul", cost: 500000 },
@@ -91,9 +91,13 @@ export default function DashboardAnalytics() {
   const handleMouseLeave = () => {
     setTooltip({ visible: false, x: 0, y: 0, content: null, chart: null });
   };
+  const scaledData = investmentTrendData.map(item => ({
+  ...item,
+  cost: item.cost / 1000, // Scale down to thousands
+}));
 
   return (
-    <div className="w-full h-screen bg-white roboto">
+    <div className="w-full h-screen bg-white roboto ">
       <div className="container mx-auto">
         {/* Market value vs investment cost */}
         <div>
@@ -283,36 +287,39 @@ export default function DashboardAnalytics() {
           </div>
         </div>
         {/*Cost of investment over times  */}
-        <div className="pt-10">
+        <div className="pt-10 pb-10">
           <h1 className="text-[36px] font-medium text-gray-900 mb-6">
             Cost of investment over time
           </h1>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart
-              data={investmentTrendData}
-              margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-              <XAxis dataKey="date" stroke="#6b7280" />
-              <YAxis stroke="#6b7280" />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #e5e7eb",
-                  borderRadius: "8px",
-                }}
-                formatter={(value) => `$${value.toLocaleString()}`}
-              />
-              <Line
-                type="monotone"
-                dataKey="cost"
-                stroke="#a855f7"
-                strokeWidth={3}
-                dot={{ fill: "#a855f7", r: 6 }}
-                activeDot={{ r: 8 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+         <ResponsiveContainer width="100%" height={300}>
+    <LineChart
+      data={scaledData}
+      margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+    >
+      <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+      <XAxis dataKey="date" stroke="#6b7280" />
+      <YAxis 
+        stroke="#6b7280" 
+        tickFormatter={(value) => `${value}K`} // Append "K" to Y-axis values
+      />
+      <Tooltip
+        contentStyle={{
+          backgroundColor: "#fff",
+          border: "1px solid #e5e7eb",
+          borderRadius: "8px",
+        }}
+        formatter={(value) => `${value}K`} // Show tooltip values in thousands with "K"
+      />
+      <Line
+        type="monotone"
+        dataKey="cost"
+        stroke="#a855f7"
+        strokeWidth={3}
+        dot={{ fill: "#a855f7", r: 6 }}
+        activeDot={{ r: 8 }}
+      />
+    </LineChart>
+  </ResponsiveContainer>
         </div>
 
         {/* Tooltip Component */}

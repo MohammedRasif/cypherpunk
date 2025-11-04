@@ -14,6 +14,12 @@ import Register from "./component/Home/register.jsx";
 import ForgetPassword from "./component/Home/ForgetPassword.jsx";
 import Verification from "./component/Home/Verification.jsx";
 import CreateNewPassword from "./component/Home/CreateNewPassword.jsx";
+import { Provider } from "react-redux";
+import { store } from "./redux/store.js";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+const CLINT_ID =
+  "968286436200-7if31tvqbolu41g359vmf8eet6pfcf8u.apps.googleusercontent.com";
 
 const router = createBrowserRouter([
   {
@@ -51,8 +57,12 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <TranslationProvider>
-      <RouterProvider router={router} />
-    </TranslationProvider>
+    <GoogleOAuthProvider clientId={CLINT_ID}>
+      <Provider store={store}>
+        <TranslationProvider>
+          <RouterProvider router={router} />
+        </TranslationProvider>
+      </Provider>
+    </GoogleOAuthProvider>
   </StrictMode>
 );

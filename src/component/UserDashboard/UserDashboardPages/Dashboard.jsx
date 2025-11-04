@@ -3,10 +3,49 @@ import { CgDollar } from "react-icons/cg";
 import { FaRegChartBar } from "react-icons/fa";
 import { FaArrowUpRightDots } from "react-icons/fa6";
 import { LuTarget } from "react-icons/lu";
-// ... rest of your code
+import { useEffect } from 'react'; 
 
 const Dashboard = () => {
-  // Stats Cards Data
+ useEffect(() => {
+    const API_KEY = 'Ezy4P6aKPWV7kVK9sFcYq27pZ8E1z2Kb'; 
+    const socket = new WebSocket('wss://delayed.massive.com/stocks');
+
+    socket.onopen = () => {
+      console.log('WebSocket Connected');
+      socket.send(JSON.stringify({
+        action: 'auth',
+        params: API_KEY,
+      }));
+    };
+
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log('Received WebSocket Data:', data);
+
+      if (data[0]?.ev === 'status' && data[0]?.status === 'auth_success') {
+        console.log('Authentication Successful');
+        socket.send(JSON.stringify({
+          action: 'subscribe',
+          params: 'AM.AAPL,AM.NVDA', 
+        }));
+      } else if (data[0]?.ev === 'AM') {
+        console.log('Aggregate Minute Data:', data);
+      }
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket Error:', error);
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket Disconnected');
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
   const statsCards = [
     {
       id: 1,
@@ -188,7 +227,7 @@ const Dashboard = () => {
                   </p>
                 </div>
                 <div
-                  className={`${card.iconBg} lg:mt-3  w-12 h-12 rounded-lg flex items-center justify-center text-lg`}
+                  className={`${card.iconBg} lg:mt-3 w-12 h-12 rounded-lg flex items-center justify-center text-lg`}
                 >
                   {card.icon}
                 </div>
@@ -322,7 +361,6 @@ const Dashboard = () => {
         </div>
 
         {/* Bottom Section */}
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
           {/* Total Portfolio Value (2/3 width on large screens) */}
           <div className="bg-white p-4 rounded-lg border border-gray-200 lg:col-span-2">
@@ -360,7 +398,6 @@ const Dashboard = () => {
                         0
                       );
                     const segmentAngle = (item.percentage / total) * 360;
-                    // Add gap by reducing segment angle
                     const gapSize = 5;
                     const adjustedAngle = segmentAngle - gapSize;
                     const adjustedStart = startAngle + gapSize / 2;
@@ -372,7 +409,7 @@ const Dashboard = () => {
                         key={index}
                         className="absolute inset-0"
                         style={{
-                          transform: `rotate(${adjustedStart}deg)`, 
+                          transform: `rotate(${adjustedStart}deg)`,
                         }}
                       >
                         <div
@@ -398,7 +435,7 @@ const Dashboard = () => {
                     );
                   })}
                 </div>
-                <div className="absolute  inset-0 flex items-center justify-center  ">
+                <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center w-fit bg-gray-200 rounded-full lg:px-6 lg:py-11 px-1 py-6 shadow-inner">
                     <p className="text-[17px] text-gray-500">Total Value</p>
                     <p className="lg:text-[30px] text-[28px] font-bold text-gray-900">$40,689</p>
@@ -406,7 +443,7 @@ const Dashboard = () => {
                 </div>
               </div>
               {/* Legend */}
-              <div className="space-y-2 ">
+              <div className="space-y-2">
                 {portfolioBreakdown.map((item, index) => (
                   <div key={index} className="flex items-center gap-2">
                     <div
