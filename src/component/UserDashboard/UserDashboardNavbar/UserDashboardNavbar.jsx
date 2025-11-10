@@ -18,7 +18,7 @@ const UserDashboardNavbar = () => {
     const newLang = isFrench ? "en" : "fr";
     i18n.changeLanguage(newLang);
   };
-
+  
   return (
     <div className="flex justify-end py-3 pr-10">
       <motion.div
