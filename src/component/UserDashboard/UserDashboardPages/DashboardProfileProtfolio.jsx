@@ -11,7 +11,10 @@ import {
   Line,
 } from "recharts";
 import { PieChart, Pie, Cell } from "recharts";
+import { useTranslation } from "react-i18next"; // যোগ হলো
+
 export default function DashboardProfileProtfolio() {
+  const { t } = useTranslation(); // যোগ হলো
   const [timeRange, setTimeRange] = useState("1m");
 
   const investmentTrendData = [
@@ -39,27 +42,27 @@ export default function DashboardProfileProtfolio() {
   ];
 
   const portfolioBreakdown = [
-    { name: "Tesla", percentage: 24.4, color: "#3B82F6" },
-    { name: "Tesla", percentage: 24.4, color: "#8B5CF6" },
-    { name: "Tesla", percentage: 24.4, color: "#EC4899" },
-    { name: "Tesla", percentage: 24.4, color: "#EF4444" },
-    { name: "Tesla", percentage: 24.4, color: "#F97316" },
+    { name: t("tesla"), percentage: 24.4, color: "#3B82F6" },
+    { name: t("tesla"), percentage: 24.4, color: "#8B5CF6" },
+    { name: t("tesla"), percentage: 24.4, color: "#EC4899" },
+    { name: t("tesla"), percentage: 24.4, color: "#EF4444" },
+    { name: t("tesla"), percentage: 24.4, color: "#F97316" },
   ];
 
   return (
     <div className="w-full min-h-screen">
       <div className="container mx-auto">
         {/* Asset Report Section */}
-        <div className="bg-white rounded-lg mb-8 ">
+        <div className="bg-white rounded-lg mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-            Asset report
+            {t("asset_report")}
           </h2>
 
           {/* Percentage Display */}
           <div className="mb-6">
             <div className="text-5xl font-bold text-green-500 mb-2">39.38%</div>
             <div className="text-sm text-gray-600">
-              Today's PNL %{" "}
+              {t("today_pnl")} {" "}
               <span className="text-green-500 font-semibold">15.6%</span>
             </div>
           </div>
@@ -110,9 +113,9 @@ export default function DashboardProfileProtfolio() {
         </div>
 
         {/* Allocation Section */}
-        <div className="bg-white rounded-lg  ">
+        <div className="bg-white rounded-lg">
           <h2 className="text-2xl font-semibold text-gray-900 mb-8">
-            Allocation
+            {t("allocation")}
           </h2>
 
           <div className="flex items-center gap-12">
@@ -136,7 +139,7 @@ export default function DashboardProfileProtfolio() {
             <div className="flex-1">
               <div className="grid grid-cols-3 gap-6">
                 {portfolioBreakdown.map((item, index) => (
-                  <div key={index} className=" ">
+                  <div key={index} className="flex items-center gap-3">
                     <div
                       className="w-16 h-2 rounded-full flex-shrink-0"
                       style={{ backgroundColor: item.color }}
