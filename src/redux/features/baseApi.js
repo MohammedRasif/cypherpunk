@@ -45,7 +45,7 @@ export const baseApi = createApi({
         method: "POST",
         body: loginData,
       }),
-      invalidatesTags: ["User"], // Invalidate User-related queries on login
+      invalidatesTags: ["User"], 
     }),
 
     forgetPassword: builder.mutation({
@@ -64,14 +64,6 @@ export const baseApi = createApi({
       }),
       invalidatesTags: ["User"], 
     }),
-    // reSendOtp: builder.mutation({
-    //   query: (email) => ({
-    //     url: "/auth/resend_otp/",
-    //     method: "POST",
-    //     body: email,
-    //   }),
-    //   invalidatesTags: ["User"], // Invalidate User-related queries on OTP resend
-    // }),
     
     updatePassword: builder.mutation({
       query: (data) => ({
@@ -81,8 +73,6 @@ export const baseApi = createApi({
       }),
       invalidatesTags: ["User"], 
     }),
-   
-
   }),
 });
 

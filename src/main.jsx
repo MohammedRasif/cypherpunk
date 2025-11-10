@@ -18,6 +18,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import RegisterVerification from "./component/Home/RegisterVerification.jsx";
+import "./i18n.js";
 
 const CLINT_ID =
   "968286436200-7if31tvqbolu41g359vmf8eet6pfcf8u.apps.googleusercontent.com";

@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { TranslationContext } from "../../../context/TranslationContext";
+import { useTranslation } from "react-i18next";
 
 const spring = {
   type: "spring",
@@ -9,11 +9,17 @@ const spring = {
 };
 
 const UserDashboardNavbar = () => {
-  const { language, toggleLanguage, t } = useContext(TranslationContext);
-  const isFrench = language === "fr";
+  const { t, i18n } = useTranslation();
 
-  const knobX = isFrench ? "translate-x-[75px]" : "translate-x-[0px]";
-  const knobBgColor = isFrench ? "bg-[#8280FF]" : "bg-[#8280FF]";
+  const currentLang = i18n.language;
+  const isFrench = currentLang === "fr";
+
+  // ভাষা চেঞ্জ + localStorage এ সেভ
+  const toggleLanguage = () => {
+    const newLang = isFrench ? "en" : "fr";
+    i18n.changeLanguage(newLang);
+    // localStorage এ সেভ হচ্ছে LanguageDetector এর জন্য (তুমি detection চালু করেছো)
+  };
 
   return (
     <div className="flex justify-end py-3 pr-10">
@@ -24,18 +30,15 @@ const UserDashboardNavbar = () => {
         transition={spring}
       >
         <motion.div
-          className={`w-[72px] h-9 rounded-full absolute top-[5px] flex justify-center items-center font-bold text-white shadow-lg ${knobBgColor}`}
+          className="w-[72px] h-9 rounded-full absolute top-[5px] flex justify-center items-center font-bold text-white shadow-lg bg-[#8280FF]"
           animate={{ x: isFrench ? 75 : 5 }}
           transition={spring}
-        ></motion.div>
+        />
 
         <motion.span
           className={`text-sm w-1/2 pl-2 pt-[1px] text-center z-10 font-semibold ${
             isFrench ? "text-gray-500" : "text-white"
           }`}
-          initial={false}
-          animate={{ color: isFrench ? "#6B7280" : "#FFFFFF" }}
-          transition={{ duration: 0.3 }}
         >
           {t("english")}
         </motion.span>
@@ -44,9 +47,6 @@ const UserDashboardNavbar = () => {
           className={`text-sm w-1/2 pt-[1px] text-center z-10 font-semibold ${
             isFrench ? "text-white" : "text-gray-500"
           }`}
-          initial={false}
-          animate={{ color: isFrench ? "#FFFFFF" : "#6B7280" }}
-          transition={{ duration: 0.3 }}
         >
           {t("french")}
         </motion.span>

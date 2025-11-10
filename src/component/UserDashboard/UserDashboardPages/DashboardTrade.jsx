@@ -1,6 +1,9 @@
+"use client";
+
 import React, { useState } from "react";
 import { GoChevronDown } from "react-icons/go";
 import { GrLineChart } from "react-icons/gr";
+import { useTranslation } from "react-i18next"; // যোগ হলো
 
 // --- Trade Data ---
 const tradesData = [
@@ -61,10 +64,8 @@ const tradesData = [
   },
 ];
 
-// --- Helper Functions ---
-
-// Function to format P&L for display with color and sign
-const formatPnL = (pnl, percent, type) => {
+// --- Helper Function ---
+const formatPnL = (pnl, percent, type, t) => {
   const isPositive = type === "positive";
   const colorClass = isPositive ? "text-green-600" : "text-red-600";
   const sign = isPositive ? "+" : "-";
@@ -86,95 +87,85 @@ const formatPnL = (pnl, percent, type) => {
 
 // --- Main Component ---
 function DashboardTrade() {
-  // State for the tabs: 'active' or 'closed'
+  const { t } = useTranslation(); // যোগ হলো
   const [activeTab, setActiveTab] = useState("active");
 
-  // Filter trades based on the active tab
   const filteredTrades = tradesData.filter(
     (trade) => trade.status === (activeTab === "active" ? "active" : "closed")
   );
 
-  // Base button classes for the tab group
   const baseClasses =
     "py-2 px-6 text-base font-semibold transition-colors duration-300 flex-grow text-center";
 
-  // Dynamic classes based on the active state
   const activeClasses = (tabName) =>
     activeTab === tabName
-      ? "bg-gray-900 text-white shadow-md z-10" // Selected tab style
-      : "bg-transparent text-gray-500 hover:text-gray-800"; // Unselected tab style
+      ? "bg-gray-900 text-white shadow-md z-10"
+      : "bg-transparent text-gray-500 hover:text-gray-800";
 
   return (
-    <div className="bg-white  p-4 sm:p-6 lg:p-8">
-      {/* --- Header Section --- */}
+    <div className="bg-white p-4 sm:p-6 lg:p-8">
+      {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-start mb-6">
         <div>
-          <h1 className="text-[32px] font-bold text-gray-900">My trades</h1>
+          <h1 className="text-[32px] font-bold text-gray-900">
+            {t("my_trades")}
+          </h1>
           <p className="text-[16px] text-gray-500">
-            Your trading performance at a glance
+            {t("trading_performance_glance")}
           </p>
         </div>
         <div className="flex space-x-4 items-center mt-4 sm:mt-0">
-          {/* Calendar/Month Dropdown - Styled to look like the image */}
-
-          {/* Add Trade Button */}
           <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg flex items-center shadow-md">
-            <span className="lg:text-xl mr-1">+</span> Add Trade
+            <span className="lg:text-xl mr-1">+</span> {t("add_trade")}
           </button>
         </div>
       </div>
+
+      {/* Month Dropdown */}
       <div className="flex items-center justify-end mb-5 relative">
-        <GoChevronDown className="absolute right-2" />
-        <select className="px-3 py-2 border border-gray-200 w-36 rounded-md text-sm text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg%20width%3d%2210%22%20height%3d%226%22%20viewBox%3d%220%200%2010%206%22%20fill%3d%22none%22%20xmlns%3d%22http%3a%2f%2fw3.org%2f2000%2fsvg%22%3e%3cpath%20d%3d%22M5%206L0%200h10L5%206z%22%20fill%3d%22%236B7280%22%2f%3e%3c%2fsvg%3e')] bg-no-repeat bg-[right_0.75rem_center]">
-          <option>October</option>
-          <option>September</option>
-          <option>August</option>
-          <option>July</option>
+        <GoChevronDown className="absolute right-2 pointer-events-none" />
+        <select className="px-3 py-2 pr-8 border border-gray-200 w-36 rounded-md text-sm text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg%20width%3d%2210%22%20height%3d%226%22%20viewBox%3d%220%200%2010%206%22%20fill%3d%22none%22%20xmlns%3d%22http%3a%2f%2fw3.org%2f2000%2fsvg%22%3e%3cpath%20d%3d%22M5%206L0%200h10L5%206z%22%20fill%3d%22%236B7280%22%2f%3e%3c%2fsvg%3e')] bg-no-repeat bg-[right_0.75rem_center]">
+          <option>{t("october")}</option>
+          <option>{t("september")}</option>
+          <option>{t("august")}</option>
+          <option>{t("july")}</option>
         </select>
       </div>
 
-      <div className="flex rounded-full mb-6 w-fit bg-gray-100 p-1.5 relative  overflow-hidden shadow-inner">
-        {/* Active Trades Button */}
+      {/* Tabs */}
+      <div className="flex rounded-full mb-6 w-fit bg-gray-100 p-1.5 relative overflow-hidden shadow-inner">
         <button
           onClick={() => setActiveTab("active")}
-          className={`${baseClasses} ${activeClasses(
-            "active"
-          )} rounded-full cursor-pointer`}
+          className={`${baseClasses} ${activeClasses("active")} rounded-full cursor-pointer`}
         >
-          Active trades
+          {t("active_trades")}
         </button>
-
-        {/* Close Trades Button */}
         <button
           onClick={() => setActiveTab("closed")}
-          className={`${baseClasses} ${activeClasses(
-            "closed"
-          )} rounded-full cursor-pointer`}
+          className={`${baseClasses} ${activeClasses("closed")} rounded-full cursor-pointer`}
         >
-          Close trades
+          {t("closed_trades")}
         </button>
       </div>
 
+      {/* Table */}
       <div className="overflow-x-auto">
         {filteredTrades.length === 0 ? (
           <div className="text-center py-10 text-gray-500">
-            No {activeTab} trades found.
+            {t("no_trades_found", { status: activeTab === "active" ? t("active") : t("closed") })}
           </div>
         ) : (
           <table className="min-w-full divide-y divide-gray-200">
-            {/* Table Header */}
             <thead>
               <tr className="text-left text-[16px] font-medium text-gray-500 uppercase tracking-wider">
-                <th className="py-3 pr-4 w-1/6">Trade</th>
-                <th className="py-3 px-4 w-1/6">Buy Price</th>
-                <th className="py-3 px-4 w-1/6">Share</th>
-                <th className="py-3 px-4 w-1/6">Realized P/L</th>
-                <th className="py-3 px-4 w-1/6">Notes</th>
-                <th className="py-3 px-4 w-1/6 text-right">Date</th>
+                <th className="py-3 pr-4 w-1/6">{t("trade")}</th>
+                <th className="py-3 px-4 w-1/6">{t("buy_price")}</th>
+                <th className="py-3 px-4 w-1/6">{t("share")}</th>
+                <th className="py-3 px-4 w-1/6">{t("realized_pnl")}</th>
+                <th className="py-3 px-4 w-1/6">{t("notes")}</th>
+                <th className="py-3 px-4 w-1/6 text-right">{t("date")}</th>
               </tr>
             </thead>
-
-            {/* Table Body - Using map to render filtered data */}
             <tbody className="bg-white divide-y divide-gray-100">
               {filteredTrades.map((trade, index) => (
                 <tr
@@ -184,17 +175,13 @@ function DashboardTrade() {
                   <td className="py-3 pr-4 font-semibold">{trade.trade}</td>
                   <td className="py-3 px-4">${trade.buyPrice.toFixed(2)}</td>
                   <td className="py-3 px-4">{trade.share}</td>
-                  <td className="py-3 px-4 flex text-green-600">
+                  <td className="py-3 px-4 flex">
                     <span>
                       <GrLineChart className="mt-2.5 mr-2" />
                     </span>
-                    {formatPnL(
-                      trade.realizedPnL,
-                      trade.realizedPnLPercent,
-                      trade.type
-                    )}
+                    {formatPnL(trade.realizedPnL, trade.realizedPnLPercent, trade.type, t)}
                   </td>
-                  <td className="py-3 px-4 text-gray-600">{trade.notes}</td>
+                  <td className="py-3 px-4 text-gray-600">{t(trade.notes)}</td>
                   <td className="py-3 px-4 text-gray-600 text-right">
                     {trade.date}
                   </td>

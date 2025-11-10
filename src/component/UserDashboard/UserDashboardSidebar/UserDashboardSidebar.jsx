@@ -2,11 +2,6 @@
 
 import { useTranslation } from "react-i18next";
 import {
-  AiOutlineUser,
-  AiOutlineLineChart,
-  AiOutlineTeam,
-  AiOutlinePieChart,
-  AiOutlineLogout,
   AiOutlineClose,
   AiOutlineSetting,
 } from "react-icons/ai";
@@ -21,66 +16,58 @@ const UserDashboardSidebar = ({
   setIsSidebarOpen,
   isMobile,
 }) => {
-  // Get the current location
   const location = useLocation();
-  const { t, i18n } = useTranslation();
-    const isFrench = i18n.language === "fr";
+  const { t } = useTranslation(); // এটা যোগ হলো
 
-  // Navigation items
+  // Navigation items - এখানে t() দিয়ে ট্রান্সলেট করা হয়েছে
   const navItems = [
     {
-      name: "Portfolio",
+      name: t("portfolio"),
       icon: <FaUser size={24} />,
       path: "/",
       active: location.pathname === "/",
     },
     {
-      name: "My Trade",
+      name: t("my_trade"),
       icon: <PiChartLineFill size={24} />,
       path: "/trade",
       active: location.pathname === "/trade",
     },
     {
-      name: "Social feed",
+      name: t("social_feed"),
       icon: <FaUserFriends size={24} />,
       path: "/social-feed",
       active: location.pathname === "/social-feed",
     },
     {
-      name: "Analytics",
+      name: t("analytics"),
       icon: <BsFillPieChartFill size={24} />,
       path: "/analytics",
       active: location.pathname === "/analytics",
     },
     {
-      name: "Log out",
+      name: t("logout"),
       icon: <IoLogOut size={24} />,
       path: "/logout",
       active: location.pathname === "/logout",
     },
   ];
 
-  // Close sidebar on mobile when a link is clicked
   const handleLinkClick = () => {
-    if (isMobile) {
-      setIsSidebarOpen(false);
-    }
+    if (isMobile) setIsSidebarOpen(false);
   };
 
-  // Close sidebar on mobile when close button is clicked
   const handleCloseClick = () => {
-    if (isMobile) {
-      setIsSidebarOpen(false);
-    }
+    if (isMobile) setIsSidebarOpen(false);
   };
 
   return (
-    <div className="h-full flex flex-col justify-between p-8 bg-white roboto" >
-      {/* Sidebar Header/Logo */}
+    <div className="h-full flex flex-col justify-between p-8 bg-white roboto">
+      {/* Logo / Header */}
       <div className="flex items-center justify-between mb-8">
         {isSidebarOpen && (
           <div className="flex items-center space-x-2">
-            <span className="text-[32px] font-bold ">
+            <span className="text-[32px] font-bold">
               <span className="text-[#4880FF]">Dash</span>Stack
             </span>
           </div>
@@ -93,8 +80,8 @@ const UserDashboardSidebar = ({
         {isMobile && isSidebarOpen && (
           <button
             onClick={handleCloseClick}
-            className="p-2 rounded-md bg-[#20325A] text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#20325A]"
-            aria-label="Close menu"
+            className="p-2 rounded-md bg-[#20325A] text-white"
+            aria-label={t("close_menu")}
           >
             <AiOutlineClose size={24} />
           </button>
@@ -114,7 +101,7 @@ const UserDashboardSidebar = ({
                 } ${
                   item.active
                     ? "bg-[#E7F0FF] text-[#007BFF]"
-                    : item.name === "Log out"
+                    : item.name === t("logout")
                     ? "text-[#DC3545]"
                     : "text-gray-600 hover:bg-gray-100"
                 }`}
@@ -132,26 +119,26 @@ const UserDashboardSidebar = ({
         </ul>
       </nav>
 
+      {/* User Profile Section */}
       {isSidebarOpen && (
         <Link
           to="/profile"
           className="mt-auto flex items-center space-x-2 p-2 rounded-full border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
-          aria-label="User Profile"
+          aria-label={t("user_profile")}
         >
-          <div className="w-9 h-9 bg-gray-300 rounded-full flex items-center justify-center">
-            {/* Placeholder for user image */}
+          <div className="w-9 h-9 bg-gray-300 rounded-full overflow-hidden">
             <img
               src="https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529179/samples/woman-on-a-football-field.jpg"
-              className="rounded-full"
-              alt="User Profile"
+              className="w-full h-full object-cover"
+              alt={t("user_profile")}
             />
           </div>
           <div className="flex-1">
             <span className="lg:text-[20px] text-sm font-medium text-gray-600">
-              Jhon
+              {localStorage.getItem("name") || "Jhon"}
             </span>
           </div>
-          <IoSettings size={24} className="text-gray-500 object-cover" />
+          <IoSettings size={24} className="text-gray-500" />
         </Link>
       )}
     </div>
