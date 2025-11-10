@@ -14,11 +14,9 @@ const UserDashboardNavbar = () => {
   const currentLang = i18n.language;
   const isFrench = currentLang === "fr";
 
-  // ভাষা চেঞ্জ + localStorage এ সেভ
   const toggleLanguage = () => {
     const newLang = isFrench ? "en" : "fr";
     i18n.changeLanguage(newLang);
-    // localStorage এ সেভ হচ্ছে LanguageDetector এর জন্য (তুমি detection চালু করেছো)
   };
 
   return (
@@ -40,7 +38,7 @@ const UserDashboardNavbar = () => {
             isFrench ? "text-gray-500" : "text-white"
           }`}
         >
-          {t("english")}
+          {t("English")}
         </motion.span>
 
         <motion.span
@@ -48,7 +46,7 @@ const UserDashboardNavbar = () => {
             isFrench ? "text-white" : "text-gray-500"
           }`}
         >
-          {t("french")}
+          {t("French")}
         </motion.span>
       </motion.div>
     </div>
