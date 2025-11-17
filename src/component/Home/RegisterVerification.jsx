@@ -1,8 +1,11 @@
+"use client";
+
 import React, { useRef, useState, useCallback } from "react";
 import { useVerifyRegisterEmailMutation } from "../../redux/features/baseApi";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next"; 
 
 const DigitInput = React.forwardRef(
   ({ value, onChange, onKeyDown, onPaste }, ref) => (
@@ -22,6 +25,7 @@ const DigitInput = React.forwardRef(
 );
 
 function RegisterVerification() {
+  const { t } = useTranslation(); 
   const [code, setCode] = useState(Array(6).fill(""));
   const inputRefs = useRef([]);
   const [verifyRegisterEmail, { isLoading }] = useVerifyRegisterEmailMutation();
@@ -89,10 +93,10 @@ function RegisterVerification() {
         const response = await verifyRegisterEmail({ email, code: fullCode }).unwrap();
         if (response.access) localStorage.setItem("access", response.access);
         if (response.refresh) localStorage.setItem("refresh", response.refresh);
-        toast.success("Verification Successful!");
+        toast.success(t("verification_success"));
         navigate("/");
       } catch (error) {
-        toast.error(error?.data?.message || "Verification failed");
+        toast.error(error?.data?.message || t("verification_failed"));
       }
     }
   };
@@ -101,15 +105,14 @@ function RegisterVerification() {
     <div className="flex items-center justify-center min-h-screen bg-blue-100 p-4">
       <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-lg">
         
-
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-bold mb-3 text-gray-800">
-            Check your Mail
+            {t("check_your_mail")}
           </h1>
           <p className="text-base text-gray-600 px-4">
-            We've sent a 6-digit confirmation code to{" "}
+            {t("sent_code_to", { email })}{" "}
             <span className="font-semibold text-gray-800">{email}</span>.
-            Make sure you enter correct code.
+            {t("enter_correct_code")}
           </p>
         </div>
 
@@ -127,7 +130,7 @@ function RegisterVerification() {
         </div>
 
         <button
-          type="submit"
+          type="button"
           onClick={handleVerify}
           className={`w-full py-3 rounded-lg font-semibold text-lg transition duration-200 ${
             fullCode.length === 6 && !isLoading
@@ -136,13 +139,13 @@ function RegisterVerification() {
           }`}
           disabled={fullCode.length !== 6 || isLoading}
         >
-          {isLoading ? "Verifying..." : "Verify"}
+          {isLoading ? t("verifying") : t("verify")}
         </button>
 
         <p className="mt-5 text-center text-sm text-gray-600">
-          Didn't Receive code?{" "}
+          {t("didnt_receive_code")}{" "}
           <a href="#" className="text-blue-600 hover:underline font-semibold">
-            Resend Code
+            {t("resend_code")}
           </a>
         </p>
       </div>

@@ -120,7 +120,25 @@
   "sign_up": "S'inscrire",
   "global_business_illustration": "Illustration d'affaires mondiales",
   "google_login_success": "Connexion Google réussie !",
+  "create_account": "Créer un compte",
+  "name": "Nom",
+  "your_name": "votre nom",
+  "agree_terms": "J'accepte les",
+  "terms_conditions": "Conditions générales",
+  "signing_up": "Inscription en cours...",
+  "already_have_account": "Vous avez déjà un compte ?",
+  "log_in": "Se connecter",
+  "illustration": "Illustration",
+  "signup_success": "Inscription réussie !",
+  "signup_failed": "Échec de l'inscription",
+  "google_signup_success": "Inscription Google réussie !",
   "google_login_failed": "Échec de la connexion Google",
-  "google_login_cancelled": "Connexion Google annulée ou échouée"
-
+  "google_login_cancelled": "Connexion Google annulée ou échouée",
+  "check_your_mail": "Vérifiez votre boîte mail",
+  "sent_code_to": "Nous avons envoyé un code de confirmation à 6 chiffres à",
+  "enter_correct_code": "Assurez-vous d'entrer le bon code.",
+  "verify": "Vérifier",
+  "verifying": "Vérification en cours...",
+  "verification_success": "Vérification réussie !",
+  "verification_failed": "Échec de la vérification"
 }

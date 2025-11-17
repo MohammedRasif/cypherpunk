@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import img from "../../assets/image/aaa.png";
 import { FcGoogle } from "react-icons/fc";
@@ -11,12 +13,12 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next"; 
 
 function Register() {
-  const [googleLogin, { isLoading: isGoogleLoading }] =
-    useGoogleLoginMutation();
-  const [registerUser, { isLoading: isRegisterLoading }] =
-    useRegisterMutation();
+  const { t } = useTranslation(); 
+  const [googleLogin, { isLoading: isGoogleLoading }] = useGoogleLoginMutation();
+  const [registerUser, { isLoading: isRegisterLoading }] = useRegisterMutation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -37,10 +39,10 @@ function Register() {
     try {
       const response = await registerUser(formData).unwrap();
       localStorage.setItem("email", formData.email);
-      toast.success("Sign Up Successful!");
+      toast.success(t("signup_success"));
       navigate("/register_verification");
     } catch (error) {
-      toast.error(error?.data?.message || "Sign up failed");
+      toast.error(error?.data?.message || t("signup_failed"));
     }
   };
 
@@ -68,16 +70,16 @@ function Register() {
         if (response.refresh) localStorage.setItem("refresh", response.refresh);
         localStorage.setItem("email", email);
 
-        toast.success("Google Sign Up Successful!");
+        toast.success(t("google_signup_success"));
         navigate("/");
       } catch (error) {
         toast.error(
-          error?.data?.message || error.message || "Google login failed"
+          error?.data?.message || error.message || t("google_login_failed")
         );
       }
     },
     onError: () => {
-      toast.error("Google login cancelled or failed");
+      toast.error(t("google_login_cancelled"));
     },
     flow: "implicit",
     scope: "openid email profile",
@@ -89,35 +91,30 @@ function Register() {
         <div className="bg-white rounded-3xl shadow-2xl flex w-full max-w-7xl overflow-hidden lg:h-[75vh]">
           <div className="w-1/2 p-12">
             <h2 className="text-3xl font-extrabold mb-8 text-gray-900">
-              Create an account
+              {t("create_account")}
             </h2>
 
             <button
               onClick={() => handleGoogleLogin()}
               disabled={isGoogleLoading}
               className={`flex items-center justify-center font-bold w-full py-2 bg-gray-200 mb-6 rounded-xl text-gray-700 hover:bg-gray-50 transition duration-200 ${
-                isGoogleLoading
-                  ? "opacity-50 cursor-not-allowed"
-                  : "cursor-pointer"
+                isGoogleLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
               }`}
             >
               <FcGoogle size={30} className="mr-2" />
-              {isGoogleLoading ? "Loading..." : "Continue with Google"}
+              {isGoogleLoading ? t("loading") : t("continue_with_google")}
             </button>
 
             <div className="flex items-center mb-6">
               <div className="flex-grow border-t border-gray-200"></div>
-              <span className="mx-4 text-sm text-gray-500">or</span>
+              <span className="mx-4 text-sm text-gray-500">{t("or")}</span>
               <div className="flex-grow border-t border-gray-200"></div>
             </div>
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label
-                  htmlFor="name"
-                  className="block text-gray-700 text-sm font-medium mb-1"
-                >
-                  Name
+                <label htmlFor="name" className="block text-gray-700 text-sm font-medium mb-1">
+                  {t("name")}
                 </label>
                 <input
                   type="text"
@@ -125,16 +122,13 @@ function Register() {
                   value={formData.name}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="your name"
+                  placeholder={t("your_name")}
                 />
               </div>
 
               <div className="mb-4">
-                <label
-                  htmlFor="email"
-                  className="block text-gray-700 text-sm font-medium mb-1"
-                >
-                  Email address
+                <label htmlFor="email" className="block text-gray-700 text-sm font-medium mb-1">
+                  {t("email_address")}
                 </label>
                 <input
                   type="email"
@@ -142,17 +136,14 @@ function Register() {
                   value={formData.email}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Email address"
+                  placeholder={t("email_address")}
                 />
               </div>
 
               <div className="flex space-x-4 mb-6">
                 <div className="w-1/2">
-                  <label
-                    htmlFor="password"
-                    className="block text-gray-700 text-sm font-medium mb-1"
-                  >
-                    Password
+                  <label htmlFor="password" className="block text-gray-700 text-sm font-medium mb-1">
+                    {t("password")}
                   </label>
                   <div className="relative">
                     <input
@@ -167,21 +158,14 @@ function Register() {
                       className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-gray-400"
                       onClick={() => setShowPassword(!showPassword)}
                     >
-                      {showPassword ? (
-                        <AiFillEyeInvisible size={20} />
-                      ) : (
-                        <AiFillEye size={20} />
-                      )}
+                      {showPassword ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
                     </span>
                   </div>
                 </div>
 
                 <div className="w-1/2">
-                  <label
-                    htmlFor="confirm_password"
-                    className="block text-gray-700 text-sm font-medium mb-1"
-                  >
-                    Confirm Password
+                  <label htmlFor="confirm_password" className="block text-gray-700 text-sm font-medium mb-1">
+                    {t("confirm_password")}
                   </label>
                   <div className="relative">
                     <input
@@ -194,33 +178,20 @@ function Register() {
                     />
                     <span
                       className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-gray-400"
-                      onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     >
-                      {showConfirmPassword ? (
-                        <AiFillEyeInvisible size={20} />
-                      ) : (
-                        <AiFillEye size={20} />
-                      )}
+                      {showConfirmPassword ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
                     </span>
                   </div>
                 </div>
               </div>
 
               <div className="flex items-start mb-8">
-                <input
-                  type="checkbox"
-                  id="terms"
-                  className="h-4 w-4 text-blue-600 rounded mt-1"
-                />
+                <input type="checkbox" id="terms" className="h-4 w-4 text-blue-600 rounded mt-1" />
                 <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
-                  I agree with the{" "}
-                  <a
-                    href="#"
-                    className="text-blue-600 hover:underline font-medium"
-                  >
-                    Terms & Conditions
+                  {t("agree_terms")}{" "}
+                  <a href="#" className="text-blue-600 hover:underline font-medium">
+                    {t("terms_conditions")}
                   </a>
                 </label>
               </div>
@@ -234,17 +205,14 @@ function Register() {
                     : "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
                 }`}
               >
-                {isRegisterLoading ? "Signing Up..." : "Sign Up"}
+                {isRegisterLoading ? t("signing_up") : t("sign_up")}
               </button>
             </form>
 
             <p className="mt-6 text-center text-gray-600">
-              Already have an account?{" "}
-              <NavLink
-                to="/login"
-                className="text-blue-600 hover:underline font-semibold"
-              >
-                Log in
+              {t("already_have_account")}{" "}
+              <NavLink to="/login" className="text-blue-600 hover:underline font-semibold">
+                {t("log_in")}
               </NavLink>
             </p>
           </div>
@@ -252,7 +220,7 @@ function Register() {
           <div className="w-1/2 flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
             <img
               src={img}
-              alt="Illustration"
+              alt={t("illustration")}
               className="max-w-full max-h-full object-contain"
             />
           </div>

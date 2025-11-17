@@ -41,7 +41,7 @@ export const baseApi = createApi({
     }),
     logIn: builder.mutation({
       query: (loginData) => ({
-        url: "/accounts/web/auth/login/",
+        url: "/accounts/login/",
         method: "POST",
         body: loginData,
       }),
@@ -50,29 +50,31 @@ export const baseApi = createApi({
 
     forgetPassword: builder.mutation({
       query: (forgetPassword) => ({
-        url: "/accounts/web/password/reset/",
+        url: "/accounts/pass-reset/",
         method: "POST",
         body: forgetPassword,
       }),
       invalidatesTags: ["User"],
     }),
+
     otpVerify: builder.mutation({
       query: (otpData) => ({
-        url: "/accounts/web/password/reset/verify-otp/",
+        url: "/accounts/pass-reset/verify-otp/",
         method: "POST",
         body: otpData,
       }),
       invalidatesTags: ["User"], 
     }),
-    
+
     updatePassword: builder.mutation({
       query: (data) => ({
-        url: "/accounts/web/password/reset/confirm/",
+        url: "/accounts/pass-reset/confirm/",
         method: "POST",
         body: data,
       }),
       invalidatesTags: ["User"], 
     }),
+
   }),
 });
 
@@ -80,5 +82,9 @@ export const {
   useGoogleLoginMutation,
   useRegisterMutation,
   useVerifyRegisterEmailMutation,
+  useLogInMutation,
+  useForgetPasswordMutation,
+  useOtpVerifyMutation,
+  useUpdatePasswordMutation,
  
 } = baseApi;

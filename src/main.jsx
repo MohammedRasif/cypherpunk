@@ -19,6 +19,7 @@ import { store } from "./redux/store.js";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import RegisterVerification from "./component/Home/RegisterVerification.jsx";
 import "./i18n.js";
+import PrivateRoute from "./Root/PrivertRoute.jsx";
 
 const CLINT_ID =
   "968286436200-7if31tvqbolu41g359vmf8eet6pfcf8u.apps.googleusercontent.com";
@@ -28,11 +29,11 @@ const router = createBrowserRouter([
     path: "/",
     element: <UserDashboardLayout />,
     children: [
-      { index: true, element: <Dashboard /> },
-      { path: "trade", element: <DashboardTrade /> },
-      { path: "social-feed", element: <DashboardSocialFeed /> },
-      { path: "analytics", element: <DashboardAnalytics /> },
-      { path: "profile", element: <DashboardProfile /> },
+      { index: true, element:<PrivateRoute> <Dashboard /></PrivateRoute> },
+      { path: "trade", element: <PrivateRoute><DashboardTrade /></PrivateRoute> },
+      { path: "social-feed", element: <PrivateRoute><DashboardSocialFeed /></PrivateRoute> },
+      { path: "analytics", element: <PrivateRoute><DashboardAnalytics /></PrivateRoute> },
+      { path: "profile", element: <PrivateRoute><DashboardProfile /></PrivateRoute> },
     ],
   },
   {

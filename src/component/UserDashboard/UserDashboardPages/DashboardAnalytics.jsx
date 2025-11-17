@@ -10,10 +10,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { useTranslation } from "react-i18next"; // যোগ হলো
+import { useTranslation } from "react-i18next"; 
 
 export default function DashboardAnalytics() {
-  const { t } = useTranslation(); // যোগ হলো
+  const { t } = useTranslation(); 
 
   const [tooltip, setTooltip] = useState({
     visible: false,
@@ -103,7 +103,6 @@ export default function DashboardAnalytics() {
   return (
     <div className="w-full h-screen bg-white roboto">
       <div className="container mx-auto">
-        {/* Monthly Profit & Loss */}
         <div>
           <h1 className="text-[36px] font-medium text-gray-900 mb-6">
             {t("monthly_profit_loss")}
@@ -145,10 +144,10 @@ export default function DashboardAnalytics() {
                     key={index}
                     className="flex flex-col items-center gap-1 flex-1 max-w-12 h-full lg:mt-[70px] -mt-20"
                   >
-                    <div className="flex gap-[2px] w-full h-full relative">
+                    <div className="flex gap-[2px] w-full h-full relative -mt-3">
                       <div className="absolute w-full top-[50%] h-[1px] bg-gray-300"></div>
                       <div
-                        className="bg-gradient-to-t from-[#8280FF] from-90% to-[#D1D0FF] to-100% rounded-t-lg transition-all hover:opacity-80 absolute bottom-[50%]"
+                        className="bg-gradient-to-t from-[#8280FF] from-90% to-[#D1D0FF] to-100% rounded-t-lg transition-all hover:opacity-80 absolute bottom-[50%] "
                         style={{
                           width: window.innerWidth < 768 ? "18px" : "35px",
                           height: `${(item.profit / maxAbsoluteValue) * halfChartHeight}px`,
@@ -182,7 +181,6 @@ export default function DashboardAnalytics() {
           </div>
         </div>
 
-        {/* Market Value vs Investment Cost */}
         <div className="pt-28">
           <h1 className="text-[36px] font-medium text-gray-900 mb-6">
             {t("market_value_vs_investment")}
@@ -249,7 +247,6 @@ export default function DashboardAnalytics() {
           </div>
         </div>
 
-        {/* Cost of investment over time */}
         <div className="pt-10 pb-10">
           <h1 className="text-[36px] font-medium text-gray-900 mb-6">
             {t("investment_cost_over_time")}
@@ -275,7 +272,6 @@ export default function DashboardAnalytics() {
           </ResponsiveContainer>
         </div>
 
-        {/* Custom Tooltip */}
         {tooltip.visible && (
           <div
             className="absolute bg-white border border-gray-200 rounded-lg shadow-lg p-2 text-sm text-gray-700 z-50"
