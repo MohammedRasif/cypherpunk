@@ -26,8 +26,26 @@ export const sqQuery = createApi({
     }),
 
     // show dashboard total earnings
-    showUserEarnings: builder.query({
-      query: () => "/api/accounts/web/dashboard/",
+    showbalance: builder.query({
+      query: () => "/trade/overview-stats/",
+      providesTags: ["earnings"],
+    }),
+
+    // show protfilio value in chart
+    showPortfolioValue: builder.query({
+      query: () => "/trade/overview-chart/",
+      providesTags: ["earnings"],
+    }),
+
+    // show dashboard monthly summary
+    showMonthlySummary: builder.query({
+      query: () => "/trade/portfolio-values/monthly-summary/",
+      providesTags: ["earnings"],
+    }),
+
+    // show dashbaord recent activities
+    showRecentActivities: builder.query({
+      query: () => "/trade/portfolio-values/recent-activity/",
       providesTags: ["earnings"],
     }),
 
@@ -61,6 +79,9 @@ export const sqQuery = createApi({
 
 export const {
   useShowProfileInformationQuery,
-
+  useShowbalanceQuery,
+  useShowPortfolioValueQuery,
+  useShowMonthlySummaryQuery,
+  useShowRecentActivitiesQuery,
 
 } = sqQuery;
