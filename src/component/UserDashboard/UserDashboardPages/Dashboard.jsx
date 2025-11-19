@@ -56,7 +56,6 @@ const Dashboard = () => {
         const data = JSON.parse(event.data);
         console.log("Live Update:", data);
 
-        // Check if data has holdings information
         if (
           data.top_five ||
           data.best_performing ||
@@ -502,7 +501,7 @@ const Dashboard = () => {
                 })}
               </p>
 
-              <div className="flex items-center gap-1 mb-6">
+              {/* <div className="flex items-center gap-1 mb-6">
                 <svg
                   className="w-4 h-4 text-green-500"
                   fill="currentColor"
@@ -513,7 +512,7 @@ const Dashboard = () => {
                 <span className="text-xs text-green-600 font-medium">
                   {t("up_from_yesterday")}
                 </span>
-              </div>
+              </div> */}
             </div>
 
             <div className="lg:flex lg:items-center">
